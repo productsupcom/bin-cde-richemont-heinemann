@@ -1,0 +1,30 @@
+parameters:
+    # add parameters, options for the connector or override default values
+    ## Input Files
+#    new_file: '/data/productsup/input/new_file.csv'
+#    modified_file: '/data/productsup/input/modified_file.csv'
+#    unchanged_file: '/data/productsup/input/unchanged_file.csv'
+#    deleted_file: '/data/productsup/input/deleted_file.csv'
+
+    ## Output Files
+#    feedback_file: '/data/productsup/output/feedback_file.csv'
+
+    ## parameters
+#    feedback_columns: ['id','error_message']
+
+    ## define options
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Connector\:
+        resource: '../src'
+
+    # When you want to override the CONTAINER API implementation of any service with a local based implementation
+    # all you have to do is change the application environment to APP_ENV=local.
+    # All configurations will be changed according to what is in the services_test.yaml file.
+
+    # Add service definitions that cannot be autowired or override framework defaults
