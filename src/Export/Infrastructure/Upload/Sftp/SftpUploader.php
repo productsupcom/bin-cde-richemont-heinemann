@@ -2,22 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Productsup\BinCdeHeinemann\Service\Upload\Ftp;
+namespace Productsup\BinCdeHeinemann\Service\Upload\Sftp;
 
 use Exception;
-use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Config;
 use League\Flysystem\ConnectionRuntimeException;
+use League\Flysystem\Sftp\SftpAdapter;
 use Productsup\BinCdeHeinemann\Events\Debug\UnableToUploadFile;
 use Productsup\BinCdeHeinemann\Exceptions\Client\ConnectionException;
 use Productsup\BinCdeHeinemann\Exceptions\Engineering\UploadException;
+use Productsup\BinCdeHeinemann\Service\Upload\Ftp\Configuration;
 use Productsup\BinCdeHeinemann\Service\Upload\MultipleUpload\TransportInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class FtpUploader implements TransportInterface
+class SftpUploader implements TransportInterface
 {
     public function __construct(
-        private Ftp $ftp,
+        private SftpAdapter $sftpAdapter,
         private Configuration $configuration,
         private MessageBusInterface $messageBus
     ) {
@@ -33,13 +34,13 @@ class FtpUploader implements TransportInterface
     private function connect(): self
     {
         try {
-            $this->ftp->setHost($this->configuration->getHost());
-            $this->ftp->setPort($this->configuration->getPort());
-            $this->ftp->setUsername($this->configuration->getUsername());
-            $this->ftp->setPassword($this->configuration->getPassword());
-            $this->ftp->setRoot($this->configuration->getDirectory());
+            $this->sftpAdapter->setHost($this->configuration->getHost());
+            $this->sftpAdapter->setPort($this->configuration->getPort());
+            $this->sftpAdapter->setUsername($this->configuration->getUsername());
+            $this->sftpAdapter->setPassword($this->configuration->getPassword());
+            $this->sftpAdapter->setRoot($this->configuration->getDirectory());
 
-            $this->ftp->connect();
+            $this->sftpAdapter->connect();
         } catch (ConnectionRuntimeException $exception) {
             throw ConnectionException::dueToPrevious($exception);
         }
@@ -56,13 +57,13 @@ class FtpUploader implements TransportInterface
             $filePointer = fopen($localFile, 'rb');
 
             try {
-                $ftpUpload = $this->ftp->writeStream(
+                $sftpUpload = $this->sftpAdapter->writeStream(
                     path: $remoteFile,
                     resource: $filePointer,
                     config: new Config()
                 );
 
-                if (!$ftpUpload) {
+                if (!$sftpUpload) {
                     $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile));
 
                     throw UploadException::failedUpload(
