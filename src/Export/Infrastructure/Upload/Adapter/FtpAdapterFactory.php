@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Productsup\BinCdeHeinemann\Service\Upload\Adapter;
+namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter;
 
 use League\Flysystem\Adapter\Ftp;
 

@@ -2,17 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Productsup\BinCdeHeinemann\Service\Upload\Sftp;
+namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Sftp;
 
 use Exception;
 use League\Flysystem\Config;
 use League\Flysystem\ConnectionRuntimeException;
 use League\Flysystem\Sftp\SftpAdapter;
-use Productsup\BinCdeHeinemann\Events\Debug\UnableToUploadFile;
-use Productsup\BinCdeHeinemann\Exceptions\Client\ConnectionException;
-use Productsup\BinCdeHeinemann\Exceptions\Engineering\UploadException;
-use Productsup\BinCdeHeinemann\Service\Upload\Ftp\Configuration;
-use Productsup\BinCdeHeinemann\Service\Upload\MultipleUpload\TransportInterface;
+use Productsup\BinCdeHeinemann\Export\Domain\Upload\TransportInterface;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class SftpUploader implements TransportInterface

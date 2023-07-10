@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Productsup\BinCdeHeinemann\Service\Upload\Ftp;
+namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp;
 
 class Configuration
 {
