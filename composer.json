@@ -22,9 +22,8 @@
     },
     "require": {
         "php": ">=8.1",
-        "league/flysystem": "^3.15",
-        "league/flysystem-ftp": "^3.0",
-        "league/flysystem-sftp-v3": "^3.0",
+        "league/flysystem": "^1.0",
+        "league/flysystem-sftp": "^1.0",
         "productsupcom/cde-binary-framework": "^1.0"
     },
     "require-dev": {
