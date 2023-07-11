@@ -9,6 +9,9 @@ use League\Flysystem\Config;
 use League\Flysystem\ConnectionRuntimeException;
 use League\Flysystem\Sftp\SftpAdapter;
 use Productsup\BinCdeHeinemann\Export\Domain\Upload\TransportInterface;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Event\UnableToUploadFile;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\ConnectionException;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\UploadException;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -17,15 +20,16 @@ class SftpUploader implements TransportInterface
     public function __construct(
         private SftpAdapter $sftpAdapter,
         private Configuration $configuration,
-        private MessageBusInterface $messageBus
+        private MessageBusInterface $messageBus,
+        private string $filename
     ) {
     }
 
-    public function upload(array $createdFiles): void
+    public function upload(): void
     {
         $this
             ->connect()
-            ->uploadFile($createdFiles);
+            ->uploadFile($this->filename);
     }
 
     private function connect(): self
@@ -45,42 +49,39 @@ class SftpUploader implements TransportInterface
         return $this;
     }
 
-    private function uploadFile(array $createdFiles): void
+    private function uploadFile(string $localFile): void
     {
-        foreach ($createdFiles as $file) {
-            $localFile = $file;
-            $remoteFile = basename($file);
+        $remoteFile = basename($localFile);
 
-            $filePointer = fopen($localFile, 'rb');
+        $filePointer = fopen($localFile, 'rb');
 
-            try {
-                $sftpUpload = $this->sftpAdapter->writeStream(
-                    path: $remoteFile,
-                    resource: $filePointer,
-                    config: new Config()
-                );
+        try {
+            $sftpUpload = $this->sftpAdapter->writeStream(
+                path: $remoteFile,
+                resource: $filePointer,
+                config: new Config()
+            );
 
-                if (!$sftpUpload) {
-                    $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile));
-
-                    throw UploadException::failedUpload(
-                        $remoteFile,
-                        $this->configuration->getHost(),
-                        $this->configuration->getPort()
-                    );
-                }
-            } catch (Exception $exception) {
-                $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile, $exception->getMessage()));
+            if (!$sftpUpload) {
+                $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile));
 
                 throw UploadException::failedUpload(
                     $remoteFile,
                     $this->configuration->getHost(),
-                    $this->configuration->getPort(),
-                    $exception
+                    $this->configuration->getPort()
                 );
-            } finally {
-                fclose($filePointer);
             }
+        } catch (Exception $exception) {
+            $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile, $exception->getMessage()));
+
+            throw UploadException::failedUpload(
+                $remoteFile,
+                $this->configuration->getHost(),
+                $this->configuration->getPort(),
+                $exception
+            );
+        } finally {
+            fclose($filePointer);
         }
     }
 }

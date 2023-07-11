@@ -6,5 +6,5 @@ namespace Productsup\BinCdeHeinemann\Export\Domain\Upload;
 
 interface TransportInterface
 {
-    public function upload(array $createdFiles): void;
+    public function upload(): void;
 }

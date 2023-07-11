@@ -6,9 +6,9 @@ namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter;
 
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Sftp\SftpAdapter;
-use Productsup\BinCdeHeinemann\Service\Upload\Ftp\Configuration;
-use Productsup\BinCdeHeinemann\Service\Upload\Ftp\FtpUploader;
-use Productsup\BinCdeHeinemann\Service\Upload\Sftp\SftpUploader;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\FtpUploader;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Sftp\SftpUploader;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class AdapterFactory
