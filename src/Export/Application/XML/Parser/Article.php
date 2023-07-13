@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Parser;
 
+use DOMAttr;
+use DOMElement;
 use SimpleXMLElement;
 
 final class Article
 {
-    public function addNode(SimpleXMLElement $xml, array $row): SimpleXMLElement
+    private string $tag = 'Article';
+
+    public function addNode(DOMElement $dom, array $row)
     {
-        $article = $xml->addChild('Article');
-        $article->addChild('ID', $row['key']);
-
+        $article = new DOMElement($this->tag);
+        $dom->appendChild($article);
+        //$article = $dom->getElementsByTagName($this->tag)->item(0);
+        $article->appendChild(new DOMElement('ID',  $row['id']));
+        unset($row['id']);
         foreach ($row as $tagName => $value) {
-            $article->addChild('Field', $value, '')->addAttribute('name', $tagName);
+            $test = new DOMElement('Field', $value);
+            $article->appendChild($test);
+            $test->setAttribute('name', $tagName);
         }
-
-        return $article;
     }
 }

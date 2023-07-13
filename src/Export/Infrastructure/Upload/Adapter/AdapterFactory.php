@@ -17,7 +17,8 @@ final class AdapterFactory
         private Ftp $ftp,
         private SftpAdapter $sftp,
         private Configuration $configuration,
-        private MessageBusInterface $messageBus
+        private MessageBusInterface $messageBus,
+        private string $remoteFile
     ) {
     }
 
@@ -26,8 +27,8 @@ final class AdapterFactory
         $protocol = $this->configuration->getProtocol();
 
         return match ($protocol) {
-            'sftp' => new SftpUploader($this->sftp, $this->configuration, $this->messageBus),
-            default => new FtpUploader($this->ftp, $this->configuration, $this->messageBus),
+            'sftp' => new SftpUploader($this->sftp, $this->configuration, $this->messageBus, $this->remoteFile),
+            default => new FtpUploader($this->ftp, $this->configuration, $this->messageBus, $this->remoteFile),
         };
     }
 }
