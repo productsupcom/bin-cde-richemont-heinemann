@@ -9,11 +9,6 @@ use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\Article;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleHierarchy;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\Receiver;
 use Productsup\CDE\Connector\Application\Feed\InputFeedForExport;
-use Productsup\Serializer\Normalizers\ExportChannelDenormalizer;
-use Productsup\Serializer\Transformer\ArrayType\ArrayTransformerInterface;
-use Productsup\Serializer\Transformer\ArrayType\FlatToNestedArrayTransformer;
-use SimpleXMLElement;
-use Symfony\Component\Serializer\Serializer;
 use XMLWriter;
 
 final class XmlBuilder
@@ -24,22 +19,19 @@ final class XmlBuilder
         private FlattedData $arrayTransformer,
         private Receiver $receiver,
         private InputFeedForExport $feed,
-        private string $header,
-        private string $remoteFile = 'feed.xml')
-    {
+        private string $remoteFile = 'feed.xml'
+    ) {
     }
 
     public function build(): void
     {
-        //$xml = new SimpleXMLElement($this->header, LIBXML_NOERROR, false, '', true);
         $xmlWriter = new XMLWriter();
         $xmlWriter->openMemory();
         $xmlWriter->setIndent(true);
         $xmlWriter->startDocument('1.0', 'UTF-8');
-        $xmlWriter->startElementns('n0','ArticleBulkRequest','http://montblanc.de/xi/ERP/MDM');
-        $xmlWriter->writeAttribute('xmlns:prx','urn:sap.com:proxy:MBP:/1SAI/TAS81A8E819F7B96D2C6D2F:750');
+        $xmlWriter->startElementns('n0', 'ArticleBulkRequest', 'http://montblanc.de/xi/ERP/MDM');
+        $xmlWriter->writeAttribute('xmlns:prx', 'urn:sap.com:proxy:MBP:/1SAI/TAS81A8E819F7B96D2C6D2F:750');
         $xmlWriter->endAttribute();
-
 
         $this->receiver->addNode($xmlWriter);
         $count = 0;
@@ -47,8 +39,7 @@ final class XmlBuilder
             [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article);
             $this->article->addNode($xmlWriter, $productArray);
             $count++;
-            if(0 == $count%1)
-            {
+            if (0 == $count%1) {
                 $this->saveXml($xmlWriter);
                 sleep(30);
             }

@@ -1,25 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Productsup\BinCdeHeinemann\Export\Application\Transfomer;
 
 class FlattedData
 {
-public function toNestedArray(array $articleData): array
-{
-    $articleFields = [];
-    $articleHierarchyFields = [];
-    var_dump($articleData);
-    foreach ($articleData as $key => $value) {
-        var_dump($key, $value);
-
-        if (strpos($key, 'article.') === 0) {
-            $fieldKey = substr($key, strlen('article.'));
-            $articleFields[$fieldKey] = $value;
-        } elseif (strpos($key, 'articlehierarchy.') === 0) {
-            $fieldKey = substr($key, strlen('articlehierarchy.'));
-            $articleHierarchyFields[$fieldKey] = $value;
+    public function toNestedArray(array $articleData): array
+    {
+        $articleFields = [];
+        $articleHierarchyFields = [];
+        foreach ($articleData as $key => $value) {
+            if (0 === strpos($key, 'article.')) {
+                $fieldKey = substr($key, strlen('article.'));
+                $articleFields[$fieldKey] = $value;
+            } elseif (0 === strpos($key, 'articlehierarchy.')) {
+                $fieldKey = substr($key, strlen('articlehierarchy.'));
+                $articleHierarchyFields[$fieldKey] = $value;
+            }
         }
+
+        return [$articleFields, $articleHierarchyFields];
     }
-    return [$articleFields, $articleHierarchyFields];
-}
 }
