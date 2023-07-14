@@ -14,6 +14,7 @@ use Productsup\Serializer\Transformer\ArrayType\ArrayTransformerInterface;
 use Productsup\Serializer\Transformer\ArrayType\FlatToNestedArrayTransformer;
 use SimpleXMLElement;
 use Symfony\Component\Serializer\Serializer;
+use XMLWriter;
 
 final class XmlBuilder
 {
@@ -28,46 +29,37 @@ final class XmlBuilder
     {
     }
 
-    public function build(): bool
+    public function build(): void
     {
-        $xml = new SimpleXMLElement($this->header, LIBXML_NOERROR, false, '', true);
-        $dom = dom_import_simplexml($xml);
-        $this->receiver->addNode($dom);
+        //$xml = new SimpleXMLElement($this->header, LIBXML_NOERROR, false, '', true);
+        $xmlWriter = new XMLWriter();
+        $xmlWriter->openMemory();
+        $xmlWriter->setIndent(true);
+        $xmlWriter->startDocument('1.0', 'UTF-8');
+        $xmlWriter->startElementns('n0','ArticleBulkRequest','http://montblanc.de/xi/ERP/MDM');
+        $xmlWriter->writeAttribute('xmlns:prx','urn:sap.com:proxy:MBP:/1SAI/TAS81A8E819F7B96D2C6D2F:750');
+        $xmlWriter->endAttribute();
 
-        $articlesData = [
-            [
-                'article.id' => 'SOME ID 0',
-                'article.TREXCL' => '',
-                'article.RECEXCL' => '',
-                'article.ASSORT' => '',
-                'article.LOEVM' => '',
-                'article.DISCDATE' => '',
-                'article.DATAB' => '00000000',
-                'articlehierarchy.id' => '44',
-                'articlehierarchy.parentid' => '4124',
-                'articlehierarchy.function' => '44',
-                'articlehierarchy.text' => '44',
-            ],
-            [
-                'article.id' => 'SOME ID 1',
-                'article.TREXCL' => '',
-                'article.RECEXCL' => '',
-                'article.ASSORT' => '',
-                'article.LOEVM' => '',
-                'article.DISCDATE' => '',
-                'article.DATAB' => '00000000',
-                'articlehierarchy.id' => '44',
-                'articlehierarchy.parentid' => '4124',
-                'articlehierarchy.function' => '44',
-                'articlehierarchy.text' => '44',
-            ],
-        ];
-        foreach ($articlesData as $article) {
+
+        $this->receiver->addNode($xmlWriter);
+        $count = 0;
+        foreach ($this->feed->yieldBuffered() as $article) {
             [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article);
-            $this->article->addNode($dom, $productArray);
+            $this->article->addNode($xmlWriter, $productArray);
+            $count++;
+            if(0 == $count%1)
+            {
+                $this->saveXml($xmlWriter);
+                sleep(30);
+            }
             //$this->articleHierarchy->addNode($xml, $productHierarchy);
         }
+        $xmlWriter->endElement();
+        $this->saveXml($xmlWriter);
 
-        return $xml->asXML($this->remoteFile);
+    }
+    private function saveXml($xmlWriter): void
+    {
+        file_put_contents($this->remoteFile, $xmlWriter->flush(true), FILE_APPEND);
     }
 }

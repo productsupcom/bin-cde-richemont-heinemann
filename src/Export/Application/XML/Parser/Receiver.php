@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Parser;
 
-use DOMElement;
+use XMLWriter;
 
 final class Receiver
 {
@@ -14,12 +14,13 @@ final class Receiver
     {
     }
 
-    public function addNode(DOMElement $dom)
+    public function addNode(XMLWriter $xmlWriter)
     {
-        $receiver = new DOMElement($this->tag);
-        $dom->appendChild($receiver);
-        $receiver = $dom->getElementsByTagName($this->tag)->item(0);
-        $receiver->appendChild(new DOMElement('ID', $this->receiverId));
-        $receiver->appendChild(new DOMElement('EmailAddressID', $this->receiverEmail));
+        $xmlWriter->startElement($this->tag);
+        $xmlWriter->writeElement('ID', $this->receiverId);
+        $xmlWriter->startElement('EmailAddressID');
+        $receiverEmail ?? $xmlWriter->text($this->receiverEmail);
+        $xmlWriter->endElement();
+        $xmlWriter->endElement();
     }
 }

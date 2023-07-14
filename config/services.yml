@@ -1,30 +1,73 @@
+imports:
+    - { resource: '../vendor/productsupcom/lib-serializer/config/services.yml' }
+
 parameters:
-    # add parameters, options for the connector or override default values
-    ## Input Files
-#    new_file: '/data/productsup/input/new_file.csv'
-#    modified_file: '/data/productsup/input/modified_file.csv'
-#    unchanged_file: '/data/productsup/input/unchanged_file.csv'
-#    deleted_file: '/data/productsup/input/deleted_file.csv'
-
-    ## Output Files
-#    feedback_file: '/data/productsup/output/feedback_file.csv'
-
-    ## parameters
-#    feedback_columns: ['id','error_message']
-
-    ## define options
+    ftp-host: ''
+    ftp-port: 0
+    ftp-directory: ''
+    ftp-username: ''
+    ftp-password: ''
+    ftp-remote-file: 'feed.xml'
+    xml-header: '<?xml version="1.0" encoding="utf-8"?><n0:ArticleBulkRequest xmlns:n0="http://montblanc.de/xi/ERP/MDM" xmlns:prx="urn:sap.com:proxy:MBP:/1SAI/TAS81A8E819F7B96D2C6D2F:750"></n0:ArticleBulkRequest>'
+    xml-receiver-id: 'HEINEMANN-API'
+    xml-receiver-email: ''
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            $header: '%xml-header%'
+            $receiverId: '%xml-receiver-id%'
+            $receiverEmail: '%xml-receiver-email%'
+            $remoteFile: '%ftp-remote-file%'
 
-    Connector\:
+    Productsup\BinCdeHeinemann\:
         resource: '../src'
 
-    # When you want to override the CONTAINER API implementation of any service with a local based implementation
-    # all you have to do is change the application environment to APP_ENV=local.
-    # All configurations will be changed according to what is in the services_test.yaml file.
+    Productsup\BinCdeHeinemann\Export\Infrastructure\Provider\ConfigProvider:
+        arguments:
+            $remoteFile: '%ftp-remote-file%'
+            $ftpDirectory: '%ftp-directory%'
+            $feedName: '%ftp-remote-file%'
+            $ftpHost: '%ftp-host%'
 
-    # Add service definitions that cannot be autowired or override framework defaults
+    League\Flysystem\Filesystem:
+        autowire: true
+
+    League\Flysystem\Adapter\Ftp:
+        factory: [ 'Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter\FtpAdapterFactory', 'make' ]
+
+    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\FtpUploader:
+        arguments:
+            $configuration: '@Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration'
+
+    League\Flysystem\Sftp\SftpAdapter:
+        factory: [ 'Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter\SftpAdapterFactory', 'make' ]
+
+    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Sftp\SftpUploader:
+        arguments:
+            $configuration: '@Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration'
+
+    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration:
+        arguments:
+            $ftpHost: '%ftp-host%'
+            $port : '%ftp-port%'
+            $directory: '%ftp-directory%'
+            $username: '%ftp-username%'
+            $password: '%ftp-password%'
+            $remoteFile: '%ftp-remote-file%'
+
+    Productsup\CDE\Connector\Application\Logger\ConnectorLogger:
+        '@Productsup\CDE\Connector\Infrastructure\Logger\StandardLogger'
+    Productsup\CDE\Connector\Application\Feed\OutputFeedForImport:
+        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForImport'
+    Productsup\CDE\Connector\Application\Feed\OutputFeedForExportDelta:
+        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForExportDelta'
+    Productsup\CDE\Connector\Application\Feed\OutputFeedForExport:
+        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForExport'
+    Productsup\CDE\Connector\Application\Feed\InputFeedForExportDelta:
+        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileInputFeedForExportDelta'
+    Productsup\CDE\Connector\Application\Feed\InputFeedForExport:
+        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileInputFeedForExport'

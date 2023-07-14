@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
     php-cli:
-        image: 'docker.productsup.com/cde/cde-php-cli-dev:8.2'
+        image: 'docker.productsup.com/cde/cde-php-cli-dev:8.1'
         volumes:
             - '${HOME}/.composer/:/root/.composer'
             - './files:/data/productsup'
