@@ -5,16 +5,21 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Parser;
 
 use SimpleXMLElement;
+use XMLWriter;
 
 final class ArticleHierarchy
 {
-    public function addNode(SimpleXMLElement $xml, array $row)
-    {
-        $articleHierarchy = $xml->addChild(qualifiedName: 'ArticleHierarchy', namespace: '');
+    private string $tag = 'ArticleHierarchy';
 
-        $articleHierarchy->addChild(qualifiedName: 'Node', namespace: '');
+    public function addNode(XMLWriter $writer, array $row)
+    {
+
+        $writer->startElement($this->tag);
+        $writer->startElement('Node');
         foreach ($row as $tagName => $value) {
-            $articleHierarchy->addChild(qualifiedName: $tagName, value: $value, namespace: '');
+            $writer->writeElement($tagName, $value);
         }
+        $writer->endElement();
+        $writer->endElement();
     }
 }

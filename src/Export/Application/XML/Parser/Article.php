@@ -22,8 +22,8 @@ final class Article
 
         foreach ($row as $tagName => $value) {
             $writer->startElement('Field');
-            $writer->text($value);
             $writer->writeAttribute('name', $tagName);
+            $writer->text($value);
             $writer->endElement();
         }
         $writer->endElement();

@@ -22,7 +22,7 @@ final class Exporter
     {
         $this->messageBus->dispatch(new ProcessStarted());
         $this->xml->build();
-        //$this->uploadHandler->upload();
+        $this->uploadHandler->upload();
         $this->messageBus->dispatch(new ExportSuccessful());
     }
 }

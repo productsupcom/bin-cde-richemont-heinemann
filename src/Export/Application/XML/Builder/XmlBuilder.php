@@ -35,15 +35,24 @@ final class XmlBuilder
 
         $this->receiver->addNode($xmlWriter);
         $count = 0;
-        foreach ($this->feed->yieldBuffered() as $article) {
+        $articleHierarchyData = [];
+        foreach ($this->feed->yieldBuffered()as $article) {
             [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article);
             $this->article->addNode($xmlWriter, $productArray);
+            array_push($articleHierarchyData, $productHierarchy);
             $count++;
-            if (0 == $count%1) {
+            if (0 == $count%1000) {
                 $this->saveXml($xmlWriter);
-                sleep(30);
             }
-            //$this->articleHierarchy->addNode($xml, $productHierarchy);
+        }
+
+        foreach ($articleHierarchyData as $hierarchy)
+        {
+            $this->articleHierarchy->addNode($xmlWriter, $hierarchy);
+            $count++;
+            if (0 == $count%1000) {
+                $this->saveXml($xmlWriter);
+            }
         }
         $xmlWriter->endElement();
         $this->saveXml($xmlWriter);
