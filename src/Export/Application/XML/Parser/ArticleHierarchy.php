@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Parser;
 
-use SimpleXMLElement;
 use XMLWriter;
 
 final class ArticleHierarchy
@@ -13,7 +12,6 @@ final class ArticleHierarchy
 
     public function addNode(XMLWriter $writer, array $row)
     {
-
         $writer->startElement($this->tag);
         $writer->startElement('Node');
         foreach ($row as $tagName => $value) {

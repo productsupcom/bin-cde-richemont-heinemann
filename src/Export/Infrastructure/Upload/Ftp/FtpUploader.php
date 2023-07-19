@@ -14,7 +14,7 @@ use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\Connection
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\UploadException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class FtpUploader implements TransportInterface
+class FtpUploader
 {
     public function __construct(
         private Ftp $ftp,

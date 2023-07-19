@@ -15,7 +15,7 @@ use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\UploadExce
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class SftpUploader implements TransportInterface
+class SftpUploader
 {
     public function __construct(
         private SftpAdapter $sftpAdapter,

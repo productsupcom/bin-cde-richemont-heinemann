@@ -8,18 +8,22 @@ use XMLWriter;
 
 final class Receiver
 {
-    private string $tag = 'Receiver';
+    private const TAG = 'Receiver';
 
-    public function __construct(private string $receiverId, private string $receiverEmail)
-    {
+    public function __construct(
+        private string $receiverId,
+        private string $receiverEmail
+    ) {
     }
 
-    public function addNode(XMLWriter $xmlWriter)
+    public function addNode(XMLWriter $xmlWriter): void
     {
-        $xmlWriter->startElement($this->tag);
+        $xmlWriter->startElement(self::TAG);
         $xmlWriter->writeElement('ID', $this->receiverId);
         $xmlWriter->startElement('EmailAddressID');
-        $receiverEmail ?? $xmlWriter->text($this->receiverEmail);
+        if (!empty($this->receiverEmail)) {
+            $xmlWriter->text($this->receiverEmail);
+        }
         $xmlWriter->endElement();
         $xmlWriter->endElement();
     }

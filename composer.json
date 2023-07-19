@@ -43,7 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Connector\\Tests\\": "tests",
+            "Productsup\\BinCdeHeinemann\\Tests\\": "tests",
             "Productsup\\CDE\\Tests\\Tools\\": "vendor/productsupcom/cde-binary-framework/tests/Tools"
         }
     },

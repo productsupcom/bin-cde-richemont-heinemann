@@ -8,24 +8,33 @@ use XMLWriter;
 
 final class Article
 {
-    private string $tag = 'Article';
+    private const TAG_NAME = 'Article';
+    private const ID_FIELD_NAME = 'ID';
+    private const DEFAULT_FIELD_NAME = 'Field';
 
-    public function addNode(XMLWriter $writer, array $row)
+    public function addNode(XMLWriter $writer, array $row): void
     {
-
-        $writer->startElement($this->tag);
-
-        $writer->startElement('ID');
-        $writer->text($row['id']);
-        $writer->endElement();
+        $id = $row['id'] ?? '';
         unset($row['id']);
 
-        foreach ($row as $tagName => $value) {
-            $writer->startElement('Field');
-            $writer->writeAttribute('name', $tagName);
-            $writer->text($value);
-            $writer->endElement();
-        }
+        $this->startAndEndElement($writer, self::TAG_NAME, function() use ($writer, $row, $id) {
+            $this->startAndEndElement($writer, self::ID_FIELD_NAME, function() use ($writer, $id) {
+                $writer->text($id);
+            });
+
+            foreach ($row as $tagName => $value) {
+                $this->startAndEndElement($writer, self::DEFAULT_FIELD_NAME, function() use ($writer, $tagName, $value) {
+                    $writer->writeAttribute('name', $tagName);
+                    $writer->text($value);
+                });
+            }
+        });
+    }
+
+    private function startAndEndElement(XMLWriter $writer, string $elementName, callable $content): void
+    {
+        $writer->startElement($elementName);
+        $content();
         $writer->endElement();
     }
 }

@@ -1,0 +1,26 @@
+---
+imports:
+  - { resource: '../../config/services.yml' }
+
+parameters:
+  download_file_path: 'vfs://root'
+
+services:
+
+  GuzzleHttp\HandlerStack:
+    synthetic: true
+
+  League\Flysystem\Filesystem:
+    synthetic: true
+
+  League\Flysystem\Adapter\Ftp:
+    synthetic: true
+
+  League\Flysystem\Sftp\SftpAdapter:
+    synthetic: true
+
+
+
+
+
+
