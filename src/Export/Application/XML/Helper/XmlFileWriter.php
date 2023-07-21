@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Helper;
 
 use XMLWriter;
-use RuntimeException;
 
 class XmlFileWriter
 {
@@ -24,7 +23,7 @@ class XmlFileWriter
 
     public function conditionalWrite(int $count, XMLWriter $xmlWriter): void
     {
-        if ($count % 1000 === 0) {
+        if (0 === $count % 1000) {
             $this->write($xmlWriter);
         }
     }

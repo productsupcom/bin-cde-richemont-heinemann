@@ -17,13 +17,13 @@ final class Article
         $id = $row['id'] ?? '';
         unset($row['id']);
 
-        $this->startAndEndElement($writer, self::TAG_NAME, function() use ($writer, $row, $id) {
-            $this->startAndEndElement($writer, self::ID_FIELD_NAME, function() use ($writer, $id) {
+        $this->startAndEndElement($writer, self::TAG_NAME, function () use ($writer, $row, $id) {
+            $this->startAndEndElement($writer, self::ID_FIELD_NAME, function () use ($writer, $id) {
                 $writer->text($id);
             });
 
             foreach ($row as $tagName => $value) {
-                $this->startAndEndElement($writer, self::DEFAULT_FIELD_NAME, function() use ($writer, $tagName, $value) {
+                $this->startAndEndElement($writer, self::DEFAULT_FIELD_NAME, function () use ($writer, $tagName, $value) {
                     $writer->writeAttribute('name', $tagName);
                     $writer->text($value);
                 });

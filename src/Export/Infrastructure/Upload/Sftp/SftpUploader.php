@@ -6,11 +6,8 @@ namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Sftp;
 
 use Exception;
 use League\Flysystem\Config;
-use League\Flysystem\ConnectionRuntimeException;
 use League\Flysystem\Sftp\SftpAdapter;
-use Productsup\BinCdeHeinemann\Export\Domain\Upload\TransportInterface;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Event\UnableToUploadFile;
-use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\ConnectionException;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\UploadException;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -34,17 +31,13 @@ class SftpUploader
 
     private function connect(): self
     {
-        try {
-            $this->sftpAdapter->setHost($this->configuration->getHost());
-            $this->sftpAdapter->setPort($this->configuration->getPort());
-            $this->sftpAdapter->setUsername($this->configuration->getUsername());
-            $this->sftpAdapter->setPassword($this->configuration->getPassword());
-            $this->sftpAdapter->setRoot($this->configuration->getDirectory());
+        $this->sftpAdapter->setHost($this->configuration->getHost());
+        $this->sftpAdapter->setPort($this->configuration->getPort());
+        $this->sftpAdapter->setUsername($this->configuration->getUsername());
+        $this->sftpAdapter->setPassword($this->configuration->getPassword());
+        $this->sftpAdapter->setRoot($this->configuration->getDirectory());
 
-            $this->sftpAdapter->connect();
-        } catch (ConnectionRuntimeException $exception) {
-            throw ConnectionException::dueToPrevious($exception);
-        }
+        $this->sftpAdapter->connect();
 
         return $this;
     }

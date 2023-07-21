@@ -11,10 +11,11 @@ use XMLWriter;
 final class XmlBuilder
 {
     public function __construct(
-        private Receiver    $receiver,
-        private XmlFileWriter   $writer,
+        private Receiver $receiver,
+        private XmlFileWriter $writer,
         private XmlDataNode $dataNode
-    ) {}
+    ) {
+    }
 
     public function build(): void
     {
@@ -33,8 +34,8 @@ final class XmlBuilder
         $xmlWriter->openMemory();
         $xmlWriter->setIndent(true);
         $xmlWriter->startDocument('1.0', 'UTF-8');
-        $xmlWriter->startElementns('n0', 'ArticleBulkRequest', 'test');
-        $xmlWriter->writeAttribute('xmlns:prx', 'urn:sap.com:proxy:MBP:/test:333');
+        $xmlWriter->startElementns('n0', 'ArticleBulkRequest', 'http://montblanc.de/xi/ERP/MDM');
+        $xmlWriter->writeAttribute('xmlns:prx', 'urn:sap.com:proxy:MBP:/1SAI/TAS81A8E819F7B96D2C6D2F:750');
         $xmlWriter->endAttribute();
 
         return $xmlWriter;

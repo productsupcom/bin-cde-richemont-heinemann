@@ -32,8 +32,8 @@ class FlattedDataTest extends TestCase
             ],
             [
                 'level' => 2,
-                'parent' => 1
-            ]
+                'parent' => 1,
+            ],
         ];
 
         $outputData = $this->flattedData->toNestedArray($inputData);

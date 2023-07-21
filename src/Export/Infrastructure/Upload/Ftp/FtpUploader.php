@@ -7,10 +7,7 @@ namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp;
 use Exception;
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Config;
-use League\Flysystem\ConnectionRuntimeException;
-use Productsup\BinCdeHeinemann\Export\Domain\Upload\TransportInterface;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Event\UnableToUploadFile;
-use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\ConnectionException;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\UploadException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -33,17 +30,13 @@ class FtpUploader
 
     private function connect(): self
     {
-        try {
-            $this->ftp->setHost($this->configuration->getHost());
-            $this->ftp->setPort($this->configuration->getPort());
-            $this->ftp->setUsername($this->configuration->getUsername());
-            $this->ftp->setPassword($this->configuration->getPassword());
-            $this->ftp->setRoot($this->configuration->getDirectory());
+        $this->ftp->setHost($this->configuration->getHost());
+        $this->ftp->setPort($this->configuration->getPort());
+        $this->ftp->setUsername($this->configuration->getUsername());
+        $this->ftp->setPassword($this->configuration->getPassword());
+        $this->ftp->setRoot($this->configuration->getDirectory());
 
-            $this->ftp->connect();
-        } catch (ConnectionRuntimeException $exception) {
-            throw ConnectionException::dueToPrevious($exception);
-        }
+        $this->ftp->connect();
 
         return $this;
     }

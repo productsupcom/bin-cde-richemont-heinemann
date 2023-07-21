@@ -59,15 +59,15 @@ services:
             $password: '%ftp-password%'
             $remoteFile: '%ftp-remote-file%'
 
-    Productsup\CDE\Connector\Application\Logger\ConnectorLogger:
-        '@Productsup\CDE\Connector\Infrastructure\Logger\StandardLogger'
-    Productsup\CDE\Connector\Application\Feed\OutputFeedForImport:
-        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForImport'
-    Productsup\CDE\Connector\Application\Feed\OutputFeedForExportDelta:
-        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForExportDelta'
-    Productsup\CDE\Connector\Application\Feed\OutputFeedForExport:
-        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForExport'
-    Productsup\CDE\Connector\Application\Feed\InputFeedForExportDelta:
-        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileInputFeedForExportDelta'
-    Productsup\CDE\Connector\Application\Feed\InputFeedForExport:
-        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileInputFeedForExport'
+#    Productsup\CDE\Connector\Application\Logger\ConnectorLogger:
+#        '@Productsup\CDE\Connector\Infrastructure\Logger\StandardLogger'
+#    Productsup\CDE\Connector\Application\Feed\OutputFeedForImport:
+#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForImport'
+#    Productsup\CDE\Connector\Application\Feed\OutputFeedForExportDelta:
+#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForExportDelta'
+#    Productsup\CDE\Connector\Application\Feed\OutputFeedForExport:
+#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForExport'
+#    Productsup\CDE\Connector\Application\Feed\InputFeedForExportDelta:
+#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileInputFeedForExportDelta'
+#    Productsup\CDE\Connector\Application\Feed\InputFeedForExport:
+#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileInputFeedForExport'

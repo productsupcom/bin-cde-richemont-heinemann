@@ -26,6 +26,7 @@ final class XmlDataNode
     {
         $count = 0;
         $articleHierarchyData = [];
+
         foreach ($this->feed->yieldBuffered() as $article) {
             [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article);
             $this->article->addNode($xmlWriter, $productArray);
