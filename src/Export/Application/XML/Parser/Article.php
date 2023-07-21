@@ -14,12 +14,12 @@ final class Article
 
     public function addNode(XMLWriter $writer, array $row): void
     {
-        $id = $row['id'] ?? '';
+        $articleId = $row['id'] ?? '';
         unset($row['id']);
 
-        $this->startAndEndElement($writer, self::TAG_NAME, function () use ($writer, $row, $id) {
-            $this->startAndEndElement($writer, self::ID_FIELD_NAME, function () use ($writer, $id) {
-                $writer->text($id);
+        $this->startAndEndElement($writer, self::TAG_NAME, function () use ($writer, $row, $articleId) {
+            $this->startAndEndElement($writer, self::ID_FIELD_NAME, function () use ($writer, $articleId) {
+                $writer->text($articleId);
             });
 
             foreach ($row as $tagName => $value) {

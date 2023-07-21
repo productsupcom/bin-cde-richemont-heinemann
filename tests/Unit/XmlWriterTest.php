@@ -10,7 +10,7 @@ use XMLWriter;
 
 final class XmlWriterTest extends TestCase
 {
-    private xmlfilewriter $writer;
+    private xmlFilewriter $writer;
     private string $remoteFile;
     private XMLWriter $xmlWriter;
 

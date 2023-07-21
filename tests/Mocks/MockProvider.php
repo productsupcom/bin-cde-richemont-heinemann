@@ -56,5 +56,4 @@ trait MockProvider
 
         return $sftp;
     }
-
 }

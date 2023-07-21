@@ -33,5 +33,4 @@ final class ArticleHierarchyTest extends TestCase
 
         $this->assertXmlStringEqualsXmlString(file_get_contents(self::BASE_FIXTURES_PATH.'ArticleHierarchyExpectedXml.xml'), $xmlContent);
     }
-
 }

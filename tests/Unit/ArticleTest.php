@@ -31,5 +31,4 @@ final class ArticleTest extends TestCase
         $xmlContent = $xmlWriter->outputMemory(true);
         $this->assertXmlStringEqualsXmlString(file_get_contents(self::BASE_FIXTURES_PATH.'ArticleExpectedXml.xml'), $xmlContent);
     }
-
 }

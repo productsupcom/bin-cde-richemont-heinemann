@@ -19,7 +19,7 @@ final class XmlBuilder
 
     public function build(): void
     {
-        $xmlWriter = $this->getXMLWriter();
+        $xmlWriter = $this->getXmlWriter();
 
         $this->receiver->addNode($xmlWriter);
         $this->dataNode->buildDataNodes($xmlWriter);
@@ -28,7 +28,7 @@ final class XmlBuilder
         $this->writer->write($xmlWriter);
     }
 
-    private function getXMLWriter()
+    private function getXmlWriter()
     {
         $xmlWriter = new XMLWriter();
         $xmlWriter->openMemory();
