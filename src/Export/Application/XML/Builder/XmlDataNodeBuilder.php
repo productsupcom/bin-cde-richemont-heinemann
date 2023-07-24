@@ -6,19 +6,19 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
 use Productsup\BinCdeHeinemann\Export\Application\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleNodeBuilder;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleHierarchyNodeBuilder;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleNodeBuilder;
 use Productsup\CDE\Connector\Application\Feed\InputFeedForExport;
 use XMLWriter;
 
 final class XmlDataNodeBuilder
 {
     public function __construct(
-        private ArticleNodeBuilder          $article,
+        private ArticleNodeBuilder $article,
         private ArticleHierarchyNodeBuilder $articleHierarchy,
-        private DataFlattener               $arrayTransformer,
-        private InputFeedForExport          $feed,
-        private XmlFileWriter               $writer,
+        private DataFlattener $arrayTransformer,
+        private InputFeedForExport $feed,
+        private XmlFileWriter $writer,
     ) {
     }
 

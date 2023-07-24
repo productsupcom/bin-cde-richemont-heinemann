@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Service;
 
-use Exception;
 use Productsup\BinCdeHeinemann\Export\Application\Exporter;
-use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\ExceptionHandler;
 use Productsup\CDE\Connector\Application\Service\ApplicationService;
 use Symfony\Component\Console\Command\Command;
 

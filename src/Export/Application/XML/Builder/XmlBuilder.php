@@ -12,8 +12,8 @@ final class XmlBuilder
 {
     public function __construct(
         private ReceiverNodeBuilder $receiver,
-        private XmlFileWriter       $writer,
-        private XmlDataNodeBuilder  $dataNode
+        private XmlFileWriter $writer,
+        private XmlDataNodeBuilder $dataNode
     ) {
     }
 
