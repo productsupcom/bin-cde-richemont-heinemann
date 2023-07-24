@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Provider;
 
-class ConfigProvider implements ConfigProviderInterface
+final class ConfigProvider
 {
     public function __construct(
         private string $remoteFile,

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\Receiver;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ReceiverNodeBuilder;
 use XMLWriter;
 
-final class ReceiverTest extends TestCase
+final class ReceiverNodeBuilderTest extends TestCase
 {
     /**
      * @var XMLWriter
@@ -31,7 +31,7 @@ final class ReceiverTest extends TestCase
      */
     public function testAddNode(): void
     {
-        $receiver = new Receiver('1', 'test@example.com');
+        $receiver = new ReceiverNodeBuilder('1', 'test@example.com');
         $receiver->addNode($this->xmlWriter);
         $xml = $this->xmlWriter->outputMemory();
 

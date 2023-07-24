@@ -9,7 +9,7 @@ use Throwable;
 
 class UploadException extends EngineeringLevelException
 {
-    public static function failedUpload(string $filename, string $host, int $port, ?Throwable $previous = null): self
+    public static function fromFailedUpload(string $filename, string $host, int $port, ?Throwable $previous = null): self
     {
         return new self(
             message: sprintf(

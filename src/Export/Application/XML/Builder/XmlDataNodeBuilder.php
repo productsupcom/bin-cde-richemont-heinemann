@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
-use Productsup\BinCdeHeinemann\Export\Application\Transfomer\FlattedData;
+use Productsup\BinCdeHeinemann\Export\Application\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\Article;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleHierarchy;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleNodeBuilder;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleHierarchyNodeBuilder;
 use Productsup\CDE\Connector\Application\Feed\InputFeedForExport;
 use XMLWriter;
 
-final class XmlDataNode
+final class XmlDataNodeBuilder
 {
     public function __construct(
-        private Article $article,
-        private ArticleHierarchy $articleHierarchy,
-        private FlattedData $arrayTransformer,
-        private InputFeedForExport $feed,
-        private XmlFileWriter $writer,
+        private ArticleNodeBuilder          $article,
+        private ArticleHierarchyNodeBuilder $articleHierarchy,
+        private DataFlattener               $arrayTransformer,
+        private InputFeedForExport          $feed,
+        private XmlFileWriter               $writer,
     ) {
     }
 

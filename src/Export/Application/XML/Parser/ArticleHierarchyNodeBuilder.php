@@ -6,7 +6,7 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Parser;
 
 use XMLWriter;
 
-final class ArticleHierarchy
+final class ArticleHierarchyNodeBuilder
 {
     private string $tag = 'ArticleHierarchy';
 

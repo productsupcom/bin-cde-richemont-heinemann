@@ -13,18 +13,13 @@ use Symfony\Component\Console\Command\Command;
 final class ExportService implements ApplicationService
 {
     public function __construct(
-        private Exporter $exporter,
-        private ExceptionHandler $exceptionHandler
+        private Exporter $exporter
     ) {
     }
 
     public function run(): int
     {
-        try {
-            $this->exporter->export();
-        } catch (Exception $e) {
-            $this->exceptionHandler->handle($e);
-        }
+        $this->exporter->export();
 
         return Command::SUCCESS;
     }

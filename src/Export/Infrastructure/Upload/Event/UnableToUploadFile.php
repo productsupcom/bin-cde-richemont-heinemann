@@ -6,7 +6,7 @@ namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Event;
 
 use Productsup\CDE\Connector\Application\Event\DebugEvent;
 
-class UnableToUploadFile implements DebugEvent
+final class UnableToUploadFile implements DebugEvent
 {
     private const DEFAULT_MESSAGE = 'Upload function resulted false value';
 

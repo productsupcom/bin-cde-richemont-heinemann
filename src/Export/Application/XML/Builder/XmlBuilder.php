@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\Receiver;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ReceiverNodeBuilder;
 use XMLWriter;
 
 final class XmlBuilder
 {
     public function __construct(
-        private Receiver $receiver,
-        private XmlFileWriter $writer,
-        private XmlDataNode $dataNode
+        private ReceiverNodeBuilder $receiver,
+        private XmlFileWriter       $writer,
+        private XmlDataNodeBuilder  $dataNode
     ) {
     }
 

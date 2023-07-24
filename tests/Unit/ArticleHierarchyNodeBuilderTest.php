@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleHierarchy;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleHierarchyNodeBuilder;
 use XMLWriter;
 
-final class ArticleHierarchyTest extends TestCase
+final class ArticleHierarchyNodeBuilderTest extends TestCase
 {
     private const BASE_FIXTURES_PATH = __DIR__.'/../Fixtures/';
 
@@ -18,7 +18,7 @@ final class ArticleHierarchyTest extends TestCase
 
         $xmlWriter->openMemory();
 
-        $articleHierarchy = new ArticleHierarchy();
+        $articleHierarchy = new ArticleHierarchyNodeBuilder();
 
         $row = [
             'id' => '44',

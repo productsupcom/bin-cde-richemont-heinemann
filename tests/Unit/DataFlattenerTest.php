@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Productsup\BinCdeHeinemann\Export\Application\Transfomer\FlattedData;
+use Productsup\BinCdeHeinemann\Export\Application\Transfomer\DataFlattener;
 
-class FlattedDataTest extends TestCase
+class DataFlattenerTest extends TestCase
 {
-    private FlattedData $flattedData;
+    private DataFlattener $flattedData;
 
     protected function setUp(): void
     {
-        $this->flattedData = new FlattedData();
+        $this->flattedData = new DataFlattener();
     }
 
     public function testToNestedArray(): void

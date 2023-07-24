@@ -8,7 +8,6 @@ parameters:
     ftp-username: ''
     ftp-password: ''
     ftp-remote-file: 'feed.xml'
-    xml-header: '<?xml version="1.0" encoding="utf-8"?><n0:ArticleBulkRequest xmlns:n0="http://montblanc.de/xi/ERP/MDM" xmlns:prx="urn:sap.com:proxy:MBP:/1SAI/TAS81A8E819F7B96D2C6D2F:750"></n0:ArticleBulkRequest>'
     xml-receiver-id: 'HEINEMANN-API'
     xml-receiver-email: ''
 
@@ -18,7 +17,6 @@ services:
         autoconfigure: true
         public: false
         bind:
-            $header: '%xml-header%'
             $receiverId: '%xml-receiver-id%'
             $receiverEmail: '%xml-receiver-email%'
             $remoteFile: '%ftp-remote-file%'
@@ -58,16 +56,3 @@ services:
             $username: '%ftp-username%'
             $password: '%ftp-password%'
             $remoteFile: '%ftp-remote-file%'
-
-#    Productsup\CDE\Connector\Application\Logger\ConnectorLogger:
-#        '@Productsup\CDE\Connector\Infrastructure\Logger\StandardLogger'
-#    Productsup\CDE\Connector\Application\Feed\OutputFeedForImport:
-#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForImport'
-#    Productsup\CDE\Connector\Application\Feed\OutputFeedForExportDelta:
-#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForExportDelta'
-#    Productsup\CDE\Connector\Application\Feed\OutputFeedForExport:
-#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileOutputFeedForExport'
-#    Productsup\CDE\Connector\Application\Feed\InputFeedForExportDelta:
-#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileInputFeedForExportDelta'
-#    Productsup\CDE\Connector\Application\Feed\InputFeedForExport:
-#        '@Productsup\CDE\Connector\Infrastructure\Feed\File\FileInputFeedForExport'

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\Article;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleNodeBuilder;
 use XMLWriter;
 
-final class ArticleTest extends TestCase
+final class ArticleNodeBuilderTest extends TestCase
 {
     private const BASE_FIXTURES_PATH = __DIR__.'/../Fixtures/';
 
@@ -16,7 +16,7 @@ final class ArticleTest extends TestCase
     {
         $xmlWriter = new XMLWriter();
         $xmlWriter->openMemory();
-        $article = new Article();
+        $article = new ArticleNodeBuilder();
         $row = [
             'id' => 'SOME ID 0',
             'TREXCL' => '',

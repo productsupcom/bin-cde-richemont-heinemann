@@ -22,7 +22,7 @@ final class AdapterFactory
     ) {
     }
 
-    public function make(): FtpUploader|SftpUploader
+    public function make(): Uploader
     {
         $protocol = $this->configuration->getProtocol();
 

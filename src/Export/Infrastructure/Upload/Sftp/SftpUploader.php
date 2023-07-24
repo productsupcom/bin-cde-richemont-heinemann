@@ -6,13 +6,16 @@ namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Sftp;
 
 use Exception;
 use League\Flysystem\Config;
+use League\Flysystem\ConnectionRuntimeException;
 use League\Flysystem\Sftp\SftpAdapter;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter\Uploader;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Event\UnableToUploadFile;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\ConnectionException;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\UploadException;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class SftpUploader
+final class SftpUploader implements Uploader
 {
     public function __construct(
         private SftpAdapter $sftpAdapter,
@@ -31,13 +34,17 @@ class SftpUploader
 
     private function connect(): self
     {
-        $this->sftpAdapter->setHost($this->configuration->getHost());
-        $this->sftpAdapter->setPort($this->configuration->getPort());
-        $this->sftpAdapter->setUsername($this->configuration->getUsername());
-        $this->sftpAdapter->setPassword($this->configuration->getPassword());
-        $this->sftpAdapter->setRoot($this->configuration->getDirectory());
+        try {
+            $this->sftpAdapter->setHost($this->configuration->getHost());
+            $this->sftpAdapter->setPort($this->configuration->getPort());
+            $this->sftpAdapter->setUsername($this->configuration->getUsername());
+            $this->sftpAdapter->setPassword($this->configuration->getPassword());
+            $this->sftpAdapter->setRoot($this->configuration->getDirectory());
 
-        $this->sftpAdapter->connect();
+            $this->sftpAdapter->connect();
+        } catch (ConnectionRuntimeException $exception) {
+            throw ConnectionException::dueToPrevious($exception);
+        }
 
         return $this;
     }
@@ -58,7 +65,7 @@ class SftpUploader
             if (!$sftpUpload) {
                 $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile));
 
-                throw UploadException::failedUpload(
+                throw UploadException::fromFailedUpload(
                     $remoteFile,
                     $this->configuration->getHost(),
                     $this->configuration->getPort()
@@ -67,7 +74,7 @@ class SftpUploader
         } catch (Exception $exception) {
             $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile, $exception->getMessage()));
 
-            throw UploadException::failedUpload(
+            throw UploadException::fromFailedUpload(
                 $remoteFile,
                 $this->configuration->getHost(),
                 $this->configuration->getPort(),

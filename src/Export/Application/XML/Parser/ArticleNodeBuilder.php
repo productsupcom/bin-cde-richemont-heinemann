@@ -6,7 +6,7 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Parser;
 
 use XMLWriter;
 
-final class Article
+final class ArticleNodeBuilder
 {
     private const TAG_NAME = 'Article';
     private const ID_FIELD_NAME = 'ID';

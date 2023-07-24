@@ -6,7 +6,7 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Parser;
 
 use XMLWriter;
 
-final class Receiver
+final class ReceiverNodeBuilder
 {
     private const TAG = 'Receiver';
 

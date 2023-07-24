@@ -18,7 +18,6 @@ final class ExportCommand extends AbstractCommand
     private const OPTION_FTP_USERNAME = 'ftp-username';
     private const OPTION_FTP_PASSWORD = 'ftp-password';
     private const OPTION_FTP_REMOTE_FILE = 'ftp-remote-file';
-    //private const OPTION_XML_HEADER = 'xml-header';
     private const OPTION_XML_RECEIVER_ID = 'xml-receiver-id';
     private const OPTION_XML_RECEIVER_EMAIL = 'xml-receiver-email';
 
@@ -57,11 +56,6 @@ final class ExportCommand extends AbstractCommand
                 mode: InputOption::VALUE_REQUIRED,
                 description: 'Filename.',
             )
-//            ->addOption(
-//                name: self::OPTION_XML_HEADER,
-//                mode: InputOption::VALUE_REQUIRED,
-//                description: 'XML custom header value.',
-//            )
             ->addOption(
                 name: self::OPTION_XML_RECEIVER_ID,
                 mode: InputOption::VALUE_REQUIRED,
@@ -84,7 +78,6 @@ final class ExportCommand extends AbstractCommand
             'ftp-username'=> self::OPTION_FTP_USERNAME,
             'ftp-password'=> self::OPTION_FTP_PASSWORD,
             'ftp-remote-file'=> self::OPTION_FTP_REMOTE_FILE,
-            //'xml-header'=> self::OPTION_XML_HEADER,
             'xml-receiver-id'=> self::OPTION_XML_RECEIVER_EMAIL,
             'xml-receiver-email'=> self::OPTION_XML_RECEIVER_EMAIL,
         ];

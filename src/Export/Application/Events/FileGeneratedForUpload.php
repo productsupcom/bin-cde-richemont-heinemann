@@ -6,7 +6,7 @@ namespace Productsup\BinCdeHeinemann\Export\Application\Events;
 
 use Productsup\CDE\Connector\Application\Event\InfoEvent;
 
-class FileGeneratedForUpload implements InfoEvent
+final class FileGeneratedForUpload implements InfoEvent
 {
     public function __construct(private string $remoteFile)
     {

@@ -18,9 +18,3 @@ services:
 
   League\Flysystem\Sftp\SftpAdapter:
     synthetic: true
-
-
-
-
-
-

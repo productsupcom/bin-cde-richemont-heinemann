@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Application\Transfomer;
 
-class FlattedData
+final class DataFlattener
 {
     public function toNestedArray(array $articleData): array
     {

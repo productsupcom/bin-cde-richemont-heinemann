@@ -7,11 +7,14 @@ namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp;
 use Exception;
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Config;
+use League\Flysystem\ConnectionRuntimeException;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter\Uploader;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Event\UnableToUploadFile;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\ConnectionException;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception\UploadException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class FtpUploader
+class FtpUploader implements Uploader
 {
     public function __construct(
         private Ftp $ftp,
@@ -30,13 +33,17 @@ class FtpUploader
 
     private function connect(): self
     {
-        $this->ftp->setHost($this->configuration->getHost());
-        $this->ftp->setPort($this->configuration->getPort());
-        $this->ftp->setUsername($this->configuration->getUsername());
-        $this->ftp->setPassword($this->configuration->getPassword());
-        $this->ftp->setRoot($this->configuration->getDirectory());
+        try {
+            $this->ftp->setHost($this->configuration->getHost());
+            $this->ftp->setPort($this->configuration->getPort());
+            $this->ftp->setUsername($this->configuration->getUsername());
+            $this->ftp->setPassword($this->configuration->getPassword());
+            $this->ftp->setRoot($this->configuration->getDirectory());
 
-        $this->ftp->connect();
+            $this->ftp->connect();
+        } catch (ConnectionRuntimeException $exception) {
+            throw ConnectionException::dueToPrevious($exception);
+        }
 
         return $this;
     }
@@ -56,7 +63,7 @@ class FtpUploader
             if (!$ftpUpload) {
                 $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile));
 
-                throw UploadException::failedUpload(
+                throw UploadException::fromFailedUpload(
                     $remoteFile,
                     $this->configuration->getHost(),
                     $this->configuration->getPort()
@@ -65,7 +72,7 @@ class FtpUploader
         } catch (Exception $exception) {
             $this->messageBus->dispatch(UnableToUploadFile::logReason($remoteFile, $exception->getMessage()));
 
-            throw UploadException::failedUpload(
+            throw UploadException::fromFailedUpload(
                 $remoteFile,
                 $this->configuration->getHost(),
                 $this->configuration->getPort(),
