@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ArticleNodeBuilder;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\ArticleNodeBuilder;
 use XMLWriter;
 
 final class ArticleNodeBuilderTest extends TestCase

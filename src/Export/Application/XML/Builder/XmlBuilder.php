@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Parser\ReceiverNodeBuilder;
 use XMLWriter;
 
 final class XmlBuilder

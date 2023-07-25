@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Productsup\BinCdeHeinemann\Export\Application\XML\Parser;
+namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
 use XMLWriter;
 
