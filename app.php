@@ -11,5 +11,5 @@ require_once __DIR__ . '/vendor/autoload_runtime.php';
 
 return static fn (array $context) => (new Console($context))
     ->add(ExportCommand::class)
-        ->getApplication()
+    ->getApplication()
 ;
