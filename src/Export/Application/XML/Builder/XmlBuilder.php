@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
+use Traversable;
 use XMLWriter;
 
 final class XmlBuilder
@@ -16,13 +17,12 @@ final class XmlBuilder
     ) {
     }
 
-    public function build(): void
+    public function build(Traversable $feed): void
     {
         $xmlWriter = $this->getXmlWriter();
 
         $this->receiver->addNode($xmlWriter);
-        $this->dataNode->buildDataNodes($xmlWriter);
-
+        $this->dataNode->buildDataNodes($xmlWriter, $feed);
         $xmlWriter->endElement();
         $this->writer->write($xmlWriter);
     }

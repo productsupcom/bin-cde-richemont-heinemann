@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Productsup\BinCdeHeinemann\Export\Application\Transfomer;
+namespace Productsup\BinCdeHeinemann\Export\Application\XML\Transfomer;
 
 final class DataFlattener
 {
