@@ -7,6 +7,7 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 use Productsup\BinCdeHeinemann\Export\Application\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
 use Productsup\CDE\Connector\Application\Feed\InputFeedForExport;
+use Traversable;
 use XMLWriter;
 
 final class XmlDataNodeBuilder
@@ -15,17 +16,16 @@ final class XmlDataNodeBuilder
         private ArticleNodeBuilder $article,
         private ArticleHierarchyNodeBuilder $articleHierarchy,
         private DataFlattener $arrayTransformer,
-        private InputFeedForExport $feed,
         private XmlFileWriter $writer,
     ) {
     }
 
-    public function buildDataNodes(XMLWriter $xmlWriter): void
+    public function buildDataNodes(XMLWriter $xmlWriter, Traversable $feed): void
     {
         $count = 0;
         $articleHierarchyData = [];
 
-        foreach ($this->feed->yieldBuffered() as $article) {
+        foreach ($feed as $article) {
             [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article);
             $this->article->addNode($xmlWriter, $productArray);
             array_push($articleHierarchyData, $productHierarchy);
