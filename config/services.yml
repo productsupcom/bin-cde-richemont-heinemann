@@ -1,6 +1,3 @@
-imports:
-    - { resource: '../vendor/productsupcom/lib-serializer/config/services.yml' }
-
 parameters:
     ftp-host: ''
     ftp-port: 0
