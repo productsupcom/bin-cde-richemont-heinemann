@@ -6,7 +6,6 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
 use Productsup\BinCdeHeinemann\Export\Application\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
-use Productsup\CDE\Connector\Application\Feed\InputFeedForExport;
 use Traversable;
 use XMLWriter;
 
