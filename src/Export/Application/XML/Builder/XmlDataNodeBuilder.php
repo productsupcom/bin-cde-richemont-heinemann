@@ -12,10 +12,10 @@ use XMLWriter;
 final class XmlDataNodeBuilder
 {
     public function __construct(
-        private ArticleNodeBuilder          $articleNodeBuilder,
+        private ArticleNodeBuilder $articleNodeBuilder,
         private ArticleHierarchyNodeBuilder $articleHierarchyNodeBuilder,
-        private DataFlattener               $arrayTransformer,
-        private XmlFileWriter               $writer,
+        private DataFlattener $arrayTransformer,
+        private XmlFileWriter $writer,
     ) {
     }
 
