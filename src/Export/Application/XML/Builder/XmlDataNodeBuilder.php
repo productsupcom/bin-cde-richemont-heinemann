@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
+use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Transfomer\DataFlattener;
 use Traversable;
 use XMLWriter;
 
