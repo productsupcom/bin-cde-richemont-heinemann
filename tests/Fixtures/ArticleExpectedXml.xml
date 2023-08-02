@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Article>
+      <ID>SOME ID 0</ID>
+      <Field name="TREXCL"/>
+      <Field name="RECEXCL"/>
+      <Field name="ASSORT"/>
+      <Field name="LOEVM"/>
+      <Field name="DISCDATE"/>
+      <Field name="DATAB">00000000</Field>
+</Article>

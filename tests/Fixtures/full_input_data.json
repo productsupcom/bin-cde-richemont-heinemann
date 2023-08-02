@@ -1,0 +1,28 @@
+[
+  {
+    "article.id": "SOME ID 0",
+    "article.TREXCL": "",
+    "article.RECEXCL": "",
+    "article.ASSORT": "",
+    "article.LOEVM": "",
+    "article.DISCDATE": "",
+    "article.DATAB": "00000000",
+    "articlehierarchy.id": "44",
+    "articlehierarchy.parentid": "4124",
+    "articlehierarchy.function": "44",
+    "articlehierarchy.text": "44"
+  },
+  {
+    "article.id": "SOME ID 1",
+    "article.TREXCL": "",
+    "article.RECEXCL": "",
+    "article.ASSORT": "",
+    "article.LOEVM": "",
+    "article.DISCDATE": "",
+    "article.DATAB": "00000000",
+    "articlehierarchy.id": "44",
+    "articlehierarchy.parentid": "4124",
+    "articlehierarchy.function": "44",
+    "articlehierarchy.text": "44"
+  }
+]

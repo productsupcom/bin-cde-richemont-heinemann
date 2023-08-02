@@ -1,0 +1,55 @@
+parameters:
+    ftp-host: ''
+    ftp-port: 0
+    ftp-directory: ''
+    ftp-username: ''
+    ftp-password: ''
+    ftp-remote-file: 'feed.xml'
+    xml-receiver-id: 'HEINEMANN-API'
+    xml-receiver-email: ''
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $receiverId: '%xml-receiver-id%'
+            $receiverEmail: '%xml-receiver-email%'
+            $remoteFile: '%ftp-remote-file%'
+
+    Productsup\BinCdeHeinemann\:
+        resource: '../src'
+
+    Productsup\BinCdeHeinemann\Export\Infrastructure\Provider\ConfigProvider:
+        arguments:
+            $remoteFile: '%ftp-remote-file%'
+            $ftpDirectory: '%ftp-directory%'
+            $feedName: '%ftp-remote-file%'
+            $ftpHost: '%ftp-host%'
+
+    League\Flysystem\Filesystem:
+        autowire: true
+
+    League\Flysystem\Adapter\Ftp:
+        factory: [ 'Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter\FtpAdapterFactory', 'make' ]
+
+    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\FtpUploader:
+        arguments:
+            $configuration: '@Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration'
+
+    League\Flysystem\Sftp\SftpAdapter:
+        factory: [ 'Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter\SftpAdapterFactory', 'make' ]
+
+    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Sftp\SftpUploader:
+        arguments:
+            $configuration: '@Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration'
+
+    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration:
+        arguments:
+            $ftpHost: '%ftp-host%'
+            $port : '%ftp-port%'
+            $directory: '%ftp-directory%'
+            $username: '%ftp-username%'
+            $password: '%ftp-password%'
+            $remoteFile: '%ftp-remote-file%'

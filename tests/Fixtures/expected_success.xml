@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n0:ArticleBulkRequest xmlns:prx="urn:sap.com:proxy:MBP:/1SAI/TAS81A8E819F7B96D2C6D2F:750" xmlns:n0="http://montblanc.de/xi/ERP/MDM">
+ <Receiver>
+  <ID>HEINEMANN-API</ID>
+  <EmailAddressID/>
+ </Receiver>
+ <Article>
+  <ID>SOME ID 0</ID>
+  <Field name="TREXCL"></Field>
+  <Field name="RECEXCL"></Field>
+  <Field name="ASSORT"></Field>
+  <Field name="LOEVM"></Field>
+  <Field name="DISCDATE"></Field>
+  <Field name="DATAB">00000000</Field>
+ </Article>
+ <Article>
+  <ID>SOME ID 1</ID>
+  <Field name="TREXCL"></Field>
+  <Field name="RECEXCL"></Field>
+  <Field name="ASSORT"></Field>
+  <Field name="LOEVM"></Field>
+  <Field name="DISCDATE"></Field>
+  <Field name="DATAB">00000000</Field>
+ </Article>
+ <ArticleHierarchy>
+  <Node>
+   <id>44</id>
+   <parentid>4124</parentid>
+   <function>44</function>
+   <text>44</text>
+  </Node>
+ </ArticleHierarchy>
+ <ArticleHierarchy>
+  <Node>
+   <id>44</id>
+   <parentid>4124</parentid>
+   <function>44</function>
+   <text>44</text>
+  </Node>
+ </ArticleHierarchy>
+</n0:ArticleBulkRequest>
