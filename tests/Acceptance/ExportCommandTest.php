@@ -64,10 +64,10 @@ final class ExportCommandTest extends AbstractCommandTester
         return [
             'full_success_ftp' => $this->getFullFtpSuccess(),
             'full_success_sftp' => $this->getFullSftpSuccess(),
-            'ftp_connection_fail'=> $this->getFtpConnectionFail(),
-            'sftp_connection_fail'=> $this->getSftpConnectionFail(),
-            'ftp_fail'=> $this->getFtpErrorFail(),
-            'sftp_fail'=> $this->getSftpErrorFail(),
+            'ftp_connection_fail' => $this->getFtpConnectionFail(),
+            'sftp_connection_fail' => $this->getSftpConnectionFail(),
+            'ftp_fail' => $this->getFtpErrorFail(),
+            'sftp_fail' => $this->getSftpErrorFail(),
         ];
     }
 

@@ -12,14 +12,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class ExportCommand extends AbstractCommand
 {
-    private const OPTION_FTP_HOST = 'ftp-host';
-    private const OPTION_FTP_PORT = 'ftp-port';
-    private const OPTION_FTP_DIRECTORY = 'ftp-directory';
-    private const OPTION_FTP_USERNAME = 'ftp-username';
-    private const OPTION_FTP_PASSWORD = 'ftp-password';
-    private const OPTION_FTP_REMOTE_FILE = 'ftp-remote-file';
-    private const OPTION_XML_RECEIVER_ID = 'xml-receiver-id';
-    private const OPTION_XML_RECEIVER_EMAIL = 'xml-receiver-email';
+    private const ACCESS_KEY_ID = 'access-key-id';
+    private const SECRET_ACCESS_KEY = 'secret-access-key';
+    private const BUCKET = 'bucket';
+    private const REGION = 'region';
+    private const DIRECTORY_PATH = 'directory-path';
+    private const XML_RECEIVER_ID = 'xml-receiver-id';
+    private const XML_RECEIVER_EMAIL = 'xml-receiver-email';
 
     public function configure(): void
     {
@@ -27,44 +26,41 @@ final class ExportCommand extends AbstractCommand
         $this->setName('export')
             ->setDescription('Export products')
             ->addObligatoryOption(
-                name: self::OPTION_FTP_HOST,
+                name: self::ACCESS_KEY_ID,
                 mode: InputOption::VALUE_REQUIRED,
-                description: 'SFTP/FTP host.'
+                description: 'Access Key Id'
             )
             ->addObligatoryOption(
-                name: self::OPTION_FTP_PORT,
+                name: self::SECRET_ACCESS_KEY,
                 mode: InputOption::VALUE_REQUIRED,
-                description: 'SFTP/FTP port.'
+                description: 'Secret Access Key'
             )
             ->addObligatoryOption(
-                name: self::OPTION_FTP_DIRECTORY,
+                name: self::BUCKET,
                 mode: InputOption::VALUE_REQUIRED,
-                description: 'SFTP/FTP directory.'
-            )
-            ->addObligatoryOption(
-                name: self::OPTION_FTP_USERNAME,
-                mode: InputOption::VALUE_REQUIRED,
-                description: 'SFTP/FTP username.'
-            )
-            ->addObligatoryOption(
-                name: self::OPTION_FTP_PASSWORD,
-                mode: InputOption::VALUE_REQUIRED,
-                description: 'SFTP/FTP password.'
-            )
-            ->addObligatoryOption(
-                name: self::OPTION_FTP_REMOTE_FILE,
-                mode: InputOption::VALUE_REQUIRED,
-                description: 'Filename.',
+                description: 'Bucket'
             )
             ->addOption(
-                name: self::OPTION_XML_RECEIVER_ID,
-                mode: InputOption::VALUE_REQUIRED,
-                description: 'XML custom receiver value.',
+                name: self::REGION,
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'Region',
+                default: 'eu-central-1'
             )
             ->addOption(
-                name: self::OPTION_XML_RECEIVER_EMAIL,
+                name: self::DIRECTORY_PATH,
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'Path to destination directory on S3 bucket',
+                default: ''
+            )
+            ->addOption(
+                name: self::XML_RECEIVER_ID,
                 mode: InputOption::VALUE_REQUIRED,
-                description: 'XML custom email value.',
+                description: 'XML custom receiver value.', //TODO check if obligatory
+            )
+            ->addOption(
+                name: self::XML_RECEIVER_EMAIL,
+                mode: InputOption::VALUE_REQUIRED,
+                description: 'XML custom email value.', //TODO check if obligatory
             );
 
     }
@@ -72,14 +68,13 @@ final class ExportCommand extends AbstractCommand
     protected function mapOptions(InputInterface $input, OutputInterface $output): array
     {
         return [
-            'ftp-host' => self::OPTION_FTP_HOST,
-            'ftp-port'=> self::OPTION_FTP_PORT,
-            'ftp-directory'=> self::OPTION_FTP_DIRECTORY,
-            'ftp-username'=> self::OPTION_FTP_USERNAME,
-            'ftp-password'=> self::OPTION_FTP_PASSWORD,
-            'ftp-remote-file'=> self::OPTION_FTP_REMOTE_FILE,
-            'xml-receiver-id'=> self::OPTION_XML_RECEIVER_EMAIL,
-            'xml-receiver-email'=> self::OPTION_XML_RECEIVER_EMAIL,
+            'access_key_id' => self::ACCESS_KEY_ID,
+            'secret_access_key' => self::SECRET_ACCESS_KEY,
+            'bucket' => self::BUCKET,
+            'region' => self::REGION,
+            'directory_path' => self::DIRECTORY_PATH,
+            'xml-receiver-id' => self::XML_RECEIVER_EMAIL,
+            'xml-receiver-email' => self::XML_RECEIVER_EMAIL,
         ];
     }
 
