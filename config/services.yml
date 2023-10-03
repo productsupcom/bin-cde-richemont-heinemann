@@ -1,11 +1,11 @@
 parameters:
-    'access_key_id': ''
-    'secret_access_key': ''
-    'bucket': ''
-    'region': ''
-    'directory_path': ''
-#    ftp-remote-file: 'feed.xml'
-    xml_receiver_id: 'HEINEMANN-API'
+    access_key_id: ''
+    secret_access_key: ''
+    bucket: ''
+    region: ''
+    directory_path: ''
+    filename: ''
+    xml_receiver_id: ''
     xml_receiver_email: ''
 
 services:
@@ -19,21 +19,21 @@ services:
             $bucket: '%bucket%'
             $region: '%region%'
             $directoryPath: '%directory_path%'
-            #$remoteFile: '%ftp-remote-file%'
+            $filename: '%filename%'
             $receiverId: '%xml_receiver_id%'
             $receiverEmail: '%xml_receiver_email%'
 
     Productsup\BinCdeHeinemann\:
         resource: '../src'
 
-    AsyncAws\S3\SimpleS3Client:
-        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\S3ClientFactory', 'make']
+    AsyncAws\SimpleS3\SimpleS3Client:
+        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Factory\S3ClientFactory', 'make']
 
-    League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter:
-        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\S3AdapterFactory', 'make']
+    League\Flysystem\FilesystemAdapter:
+        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Factory\S3AdapterFactory', 'make']
 
     League\Flysystem\Filesystem:
-        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\FilesystemFactory', 'make']
+        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Factory\FilesystemFactory', 'make']
 
     Productsup\CDE\Connector\Exception\ExceptionHandlerInterface:
         alias: Productsup\CDE\Connector\Infrastructure\Exception\EventBasedDefaultExceptionHandler

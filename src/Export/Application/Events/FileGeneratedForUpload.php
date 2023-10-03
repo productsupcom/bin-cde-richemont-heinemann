@@ -8,7 +8,7 @@ use Productsup\CDE\Connector\Application\Event\InfoEvent;
 
 final class FileGeneratedForUpload implements InfoEvent
 {
-    public function __construct(private string $remoteFile)
+    public function __construct(private readonly string $remoteFile)
     {
     }
 

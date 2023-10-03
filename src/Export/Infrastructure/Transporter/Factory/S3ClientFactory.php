@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload;
+namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Factory;
 
-use AsyncAws\S3\SimpleS3Client;
+use AsyncAws\SimpleS3\SimpleS3Client;
 
 final class S3ClientFactory
 {

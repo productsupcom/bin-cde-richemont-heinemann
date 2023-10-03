@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Cli;
 
-use Productsup\BinCdeHeinemann\Export\Infrastructure\Service\ExportService;
+use Productsup\BinCdeHeinemann\Export\Infrastructure\Cli\Service\ExportService;
 use Productsup\CDE\Connector\Infrastructure\Command\AbstractCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -16,7 +16,7 @@ final class ExportCommand extends AbstractCommand
     private const SECRET_ACCESS_KEY = 'secret-access-key';
     private const BUCKET = 'bucket';
     private const REGION = 'region';
-    private const DIRECTORY_PATH = 'directory-path';
+    private const FILENAME = 'filename';
     private const XML_RECEIVER_ID = 'xml-receiver-id';
     private const XML_RECEIVER_EMAIL = 'xml-receiver-email';
 
@@ -40,27 +40,28 @@ final class ExportCommand extends AbstractCommand
                 mode: InputOption::VALUE_REQUIRED,
                 description: 'Bucket'
             )
+            ->addObligatoryOption(
+                name: self::FILENAME,
+                mode: InputOption::VALUE_REQUIRED,
+                description: 'Filename',
+            )
             ->addOption(
                 name: self::REGION,
                 mode: InputOption::VALUE_OPTIONAL,
                 description: 'Region',
                 default: 'eu-central-1'
             )
-            ->addOption(
-                name: self::DIRECTORY_PATH,
-                mode: InputOption::VALUE_OPTIONAL,
-                description: 'Path to destination directory on S3 bucket',
-                default: ''
-            )
+
             ->addOption(
                 name: self::XML_RECEIVER_ID,
                 mode: InputOption::VALUE_REQUIRED,
-                description: 'XML custom receiver value.', //TODO check if obligatory
+                description: 'XML custom receiver value.',
+                default: 'HEINEMANN-API'
             )
             ->addOption(
                 name: self::XML_RECEIVER_EMAIL,
                 mode: InputOption::VALUE_REQUIRED,
-                description: 'XML custom email value.', //TODO check if obligatory
+                description: 'XML custom email value.',
             );
 
     }
@@ -72,9 +73,9 @@ final class ExportCommand extends AbstractCommand
             'secret_access_key' => self::SECRET_ACCESS_KEY,
             'bucket' => self::BUCKET,
             'region' => self::REGION,
-            'directory_path' => self::DIRECTORY_PATH,
-            'xml-receiver-id' => self::XML_RECEIVER_EMAIL,
-            'xml-receiver-email' => self::XML_RECEIVER_EMAIL,
+            'filename' => self::FILENAME,
+            'xml_receiver_id' => self::XML_RECEIVER_EMAIL,
+            'xml_receiver_email' => self::XML_RECEIVER_EMAIL,
         ];
     }
 

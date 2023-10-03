@@ -6,6 +6,7 @@ namespace Productsup\BinCdeHeinemann\Export\Application;
 
 use Productsup\BinCdeHeinemann\Export\Application\Events\CreatingFileStarted;
 use Productsup\BinCdeHeinemann\Export\Application\Events\FileGeneratedForUpload;
+use Productsup\BinCdeHeinemann\Export\Application\Transporter\Transporter;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\XmlBuilder;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Cli\Event\ExportSuccessful;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Cli\Event\ProcessStarted;
@@ -17,7 +18,7 @@ final class Exporter
     public function __construct(
         private MessageBusInterface $messageBus,
         private XmlBuilder $xmlBuilder,
-        private Transport $uploadHandler,
+        private Transporter $uploadHandler,
         private InputFeedForExport $inputFeedForExport,
         private string $remoteFile
     ) {
@@ -28,7 +29,7 @@ final class Exporter
         $this->messageBus->dispatch(new CreatingFileStarted());
         $this->xmlBuilder->build($this->inputFeedForExport->yieldBuffered());
         $this->messageBus->dispatch(new FileGeneratedForUpload($this->remoteFile));
-        $this->uploadHandler->upload();
+        $this->uploadHandler->transport();
         $this->messageBus->dispatch(new ExportSuccessful());
     }
 }
