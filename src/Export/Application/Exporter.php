@@ -20,7 +20,7 @@ final class Exporter
         private XmlBuilder $xmlBuilder,
         private Transporter $uploadHandler,
         private InputFeedForExport $inputFeedForExport,
-        private string $remoteFile
+        private string $filename
     ) {
     }
     public function export(): void
@@ -28,7 +28,7 @@ final class Exporter
         $this->messageBus->dispatch(new ProcessStarted());
         $this->messageBus->dispatch(new CreatingFileStarted());
         $this->xmlBuilder->build($this->inputFeedForExport->yieldBuffered());
-        $this->messageBus->dispatch(new FileGeneratedForUpload($this->remoteFile));
+        $this->messageBus->dispatch(new FileGeneratedForUpload($this->filename));
         $this->uploadHandler->transport();
         $this->messageBus->dispatch(new ExportSuccessful());
     }

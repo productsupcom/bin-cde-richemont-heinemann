@@ -14,6 +14,6 @@ final class FileGeneratedForUpload implements InfoEvent
 
     public function toLogMessage(): string
     {
-        return sprintf('File generated for upload : %s', $this->remoteFile);
+        return sprintf('File generated for upload: %s', $this->remoteFile);
     }
 }

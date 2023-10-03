@@ -74,7 +74,7 @@ final class ExportCommand extends AbstractCommand
             'bucket' => self::BUCKET,
             'region' => self::REGION,
             'filename' => self::FILENAME,
-            'xml_receiver_id' => self::XML_RECEIVER_EMAIL,
+            'xml_receiver_id' => self::XML_RECEIVER_ID,
             'xml_receiver_email' => self::XML_RECEIVER_EMAIL,
         ];
     }
