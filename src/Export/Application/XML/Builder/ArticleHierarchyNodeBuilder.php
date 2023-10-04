@@ -8,11 +8,9 @@ use XMLWriter;
 
 final class ArticleHierarchyNodeBuilder
 {
-    private string $tag = 'ArticleHierarchy';
-
-    public function addNode(XMLWriter $writer, array $row)
+    public function addNode(XMLWriter $writer, array $row): void
     {
-        $writer->startElement($this->tag);
+        $writer->startElement('ArticleHierarchy');
         $writer->startElement('Node');
         foreach ($row as $tagName => $value) {
             $writer->writeElement($tagName, $value);

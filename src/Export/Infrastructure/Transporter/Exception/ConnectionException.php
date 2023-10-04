@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Exception;
+namespace Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Exception;
 
 use Productsup\CDE\Connector\Exception\ClientLevelException;
 use Throwable;

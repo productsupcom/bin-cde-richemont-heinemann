@@ -17,7 +17,7 @@ final class XmlWriterTest extends TestCase
     protected function setUp(): void
     {
         $this->remoteFile = __DIR__.'/../../testfeed.xml';
-        $this->writer= new XmlFileWriter($this->remoteFile);
+        $this->writer = new XmlFileWriter($this->remoteFile);
         $this->xmlWriter = new XMLWriter();
         $this->xmlWriter->openMemory();
         $this->xmlWriter->startDocument('1.0', 'UTF-8');

@@ -27,7 +27,7 @@ final class XmlBuilder
         $this->writer->write($xmlWriter);
     }
 
-    private function getXmlWriter()
+    private function getXmlWriter(): XMLWriter
     {
         $xmlWriter = new XMLWriter();
         $xmlWriter->openMemory();

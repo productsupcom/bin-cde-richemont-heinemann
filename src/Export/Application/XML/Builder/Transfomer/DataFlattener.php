@@ -11,10 +11,10 @@ final class DataFlattener
         $articleFields = [];
         $articleHierarchyFields = [];
         foreach ($articleData as $key => $value) {
-            if (0 === strpos($key, 'article.')) {
+            if (str_starts_with($key, 'article.')) {
                 $fieldKey = substr($key, strlen('article.'));
                 $articleFields[$fieldKey] = $value;
-            } elseif (0 === strpos($key, 'articlehierarchy.')) {
+            } elseif (str_starts_with($key, 'articlehierarchy.')) {
                 $fieldKey = substr($key, strlen('articlehierarchy.'));
                 $articleHierarchyFields[$fieldKey] = $value;
             }

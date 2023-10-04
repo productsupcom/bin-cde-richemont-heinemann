@@ -1,12 +1,12 @@
 parameters:
-    ftp-host: ''
-    ftp-port: 0
-    ftp-directory: ''
-    ftp-username: ''
-    ftp-password: ''
-    ftp-remote-file: 'feed.xml'
-    xml-receiver-id: 'HEINEMANN-API'
-    xml-receiver-email: ''
+    access_key_id: ''
+    secret_access_key: ''
+    bucket: ''
+    region: ''
+    directory_path: ''
+    filename: ''
+    xml_receiver_id: ''
+    xml_receiver_email: ''
 
 services:
     _defaults:
@@ -14,42 +14,28 @@ services:
         autoconfigure: true
         public: false
         bind:
-            $receiverId: '%xml-receiver-id%'
-            $receiverEmail: '%xml-receiver-email%'
-            $remoteFile: '%ftp-remote-file%'
+            $accessKeyId: '%access_key_id%'
+            $secretAccessKey: '%secret_access_key%'
+            $bucket: '%bucket%'
+            $region: '%region%'
+            $directoryPath: '%directory_path%'
+            $filename: '%filename%'
+            $receiverId: '%xml_receiver_id%'
+            $receiverEmail: '%xml_receiver_email%'
 
     Productsup\BinCdeHeinemann\:
         resource: '../src'
 
-    Productsup\BinCdeHeinemann\Export\Infrastructure\Provider\ConfigProvider:
-        arguments:
-            $remoteFile: '%ftp-remote-file%'
-            $ftpDirectory: '%ftp-directory%'
-            $feedName: '%ftp-remote-file%'
-            $ftpHost: '%ftp-host%'
+    AsyncAws\SimpleS3\SimpleS3Client:
+        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Factory\S3ClientFactory', 'make']
+
+    League\Flysystem\FilesystemAdapter:
+        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Factory\S3AdapterFactory', 'make']
 
     League\Flysystem\Filesystem:
-        autowire: true
+        factory: ['Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Factory\FilesystemFactory', 'make']
 
-    League\Flysystem\Adapter\Ftp:
-        factory: [ 'Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter\FtpAdapterFactory', 'make' ]
+    Productsup\CDE\Connector\Exception\ExceptionHandlerInterface:
+        alias: Productsup\CDE\Connector\Infrastructure\Exception\EventBasedDefaultExceptionHandler
 
-    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\FtpUploader:
-        arguments:
-            $configuration: '@Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration'
-
-    League\Flysystem\Sftp\SftpAdapter:
-        factory: [ 'Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Adapter\SftpAdapterFactory', 'make' ]
-
-    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Sftp\SftpUploader:
-        arguments:
-            $configuration: '@Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration'
-
-    Productsup\BinCdeHeinemann\Export\Infrastructure\Upload\Ftp\Configuration:
-        arguments:
-            $ftpHost: '%ftp-host%'
-            $port : '%ftp-port%'
-            $directory: '%ftp-directory%'
-            $username: '%ftp-username%'
-            $password: '%ftp-password%'
-            $remoteFile: '%ftp-remote-file%'
+    Productsup\CDE\Connector\Infrastructure\Progress\Countable\EventBasedCountableProgressHandler: ~
