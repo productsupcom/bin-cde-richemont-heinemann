@@ -14,7 +14,6 @@ final class S3ClientFactory
             'accessKeyId' => $accessKeyId,
             'accessKeySecret' => $secretAccessKey,
             'region' => $region,
-            'debug' => true,
         ]);
     }
 }
