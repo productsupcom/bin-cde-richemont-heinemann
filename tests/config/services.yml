@@ -2,6 +2,9 @@
 imports:
   - { resource: '../../config/services.yml' }
 
+parameters:
+  temp_filename: 'vfs://root/output.xml'
+
 services:
   League\Flysystem\Filesystem:
     synthetic: true

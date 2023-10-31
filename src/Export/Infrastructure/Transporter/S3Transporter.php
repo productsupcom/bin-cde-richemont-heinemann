@@ -13,8 +13,9 @@ use Productsup\BinCdeHeinemann\Export\Infrastructure\Transporter\Exception\Uploa
 final class S3Transporter implements Transporter
 {
     public function __construct(
-        private Filesystem $filesystem,
-        private string $filename,
+        private readonly Filesystem $filesystem,
+        private readonly string $filename,
+        private readonly string $tempFilename
     ) {
     }
 
@@ -23,7 +24,7 @@ final class S3Transporter implements Transporter
         $key = ltrim($this->filename, '/');
 
         try {
-            $this->filesystem->writeStream($key, fopen($this->filename, 'rb'));
+            $this->filesystem->writeStream($key, fopen($this->tempFilename, 'rb'));
         } catch (FilesystemException|UnableToWriteFile $exception) {
             throw UploadFailed::dueToPrevious($exception);
         }

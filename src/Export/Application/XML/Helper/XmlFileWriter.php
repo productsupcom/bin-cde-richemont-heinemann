@@ -8,14 +8,14 @@ use XMLWriter;
 
 class XmlFileWriter
 {
-    public function __construct(private readonly string $filename)
+    public function __construct(private readonly string $tempFilename)
     {
     }
 
     public function write(XMLWriter $xmlWriter): void
     {
         $content = $xmlWriter->flush();
-        file_put_contents($this->filename, $content, FILE_APPEND);
+        file_put_contents($this->tempFilename, $content, FILE_APPEND);
     }
 
     public function conditionalWrite(int $count, XMLWriter $xmlWriter): void
