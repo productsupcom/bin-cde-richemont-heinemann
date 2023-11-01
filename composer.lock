@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "872f09124df76b0796b54b0e83634aee",
+    "content-hash": "0f20583df8b49c713166db44b1bb1b3d",
     "packages": [
         {
             "name": "async-aws/core",
@@ -82,16 +82,16 @@
         },
         {
             "name": "async-aws/s3",
-            "version": "1.14.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/async-aws/s3.git",
-                "reference": "27ce65242cde50ba09323d54708b45cf64a51aa5"
+                "reference": "1486ae6592a8f870da60dfc29bfc98390c7b9092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/async-aws/s3/zipball/27ce65242cde50ba09323d54708b45cf64a51aa5",
-                "reference": "27ce65242cde50ba09323d54708b45cf64a51aa5",
+                "url": "https://api.github.com/repos/async-aws/s3/zipball/1486ae6592a8f870da60dfc29bfc98390c7b9092",
+                "reference": "1486ae6592a8f870da60dfc29bfc98390c7b9092",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -111,7 +111,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14-dev"
+                    "dev-master": "1.15-dev"
                 }
             },
             "autoload": {
@@ -132,7 +132,7 @@
                 "sdk"
             ],
             "support": {
-                "source": "https://github.com/async-aws/s3/tree/1.14.0"
+                "source": "https://github.com/async-aws/s3/tree/2.0.0"
             },
             "funding": [
                 {
@@ -144,20 +144,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-20T19:17:40+00:00"
+            "time": "2023-08-07T20:00:50+00:00"
         },
         {
             "name": "async-aws/simple-s3",
-            "version": "1.1.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/async-aws/simple-s3.git",
-                "reference": "e4ca6b2ff302ecfe7106ecfff074715cae6c95f3"
+                "reference": "afb512bcdc56ca5c5b33913348e7c83b784355cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/async-aws/simple-s3/zipball/e4ca6b2ff302ecfe7106ecfff074715cae6c95f3",
-                "reference": "e4ca6b2ff302ecfe7106ecfff074715cae6c95f3",
+                "url": "https://api.github.com/repos/async-aws/simple-s3/zipball/afb512bcdc56ca5c5b33913348e7c83b784355cf",
+                "reference": "afb512bcdc56ca5c5b33913348e7c83b784355cf",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -167,14 +167,14 @@
                 ]
             },
             "require": {
-                "async-aws/s3": "^1.2",
+                "async-aws/s3": "^2.0",
                 "ext-json": "*",
                 "php": "^7.2.5 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -195,7 +195,7 @@
                 "sdk"
             ],
             "support": {
-                "source": "https://github.com/async-aws/simple-s3/tree/1.1.1"
+                "source": "https://github.com/async-aws/simple-s3/tree/2.0.0"
             },
             "funding": [
                 {
@@ -207,7 +207,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-07T20:00:50+00:00"
+            "time": "2023-09-07T06:56:44+00:00"
         },
         {
             "name": "brick/math",
@@ -3966,16 +3966,16 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v6.3.6",
+            "version": "v6.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "ab8446f997efb9913627e9da10fa784d2182fe92"
+                "reference": "cd67fcaf4524ec6ae5d9b2d9497682d7ad3ce57d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/ab8446f997efb9913627e9da10fa784d2182fe92",
-                "reference": "ab8446f997efb9913627e9da10fa784d2182fe92",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/cd67fcaf4524ec6ae5d9b2d9497682d7ad3ce57d",
+                "reference": "cd67fcaf4524ec6ae5d9b2d9497682d7ad3ce57d",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -4044,7 +4044,7 @@
                 "http"
             ],
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v6.3.6"
+                "source": "https://github.com/symfony/http-client/tree/v6.3.7"
             },
             "funding": [
                 {
@@ -4060,7 +4060,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-06T10:08:56+00:00"
+            "time": "2023-10-29T12:41:36+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
