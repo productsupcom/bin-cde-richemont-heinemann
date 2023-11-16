@@ -32,10 +32,12 @@ final class XmlDataNodeBuilder
             $this->writer->conditionalWrite($count, $xmlWriter);
         }
 
+        $this->articleHierarchyNodeBuilder->startArticleHierarchy($xmlWriter);
         foreach ($articleHierarchyData as $hierarchy) {
             $this->articleHierarchyNodeBuilder->addNode($xmlWriter, $hierarchy);
             $count++;
             $this->writer->conditionalWrite($count, $xmlWriter);
         }
+        $this->articleHierarchyNodeBuilder->endArticleHierarchy($xmlWriter);
     }
 }
