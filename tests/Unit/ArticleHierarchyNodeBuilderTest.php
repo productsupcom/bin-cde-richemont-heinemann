@@ -26,8 +26,9 @@ final class ArticleHierarchyNodeBuilderTest extends TestCase
             'function' => '44',
             'text' => '44',
         ];
-
+        $articleHierarchy->startArticleHierarchy($xmlWriter);
         $articleHierarchy->addNode($xmlWriter, $row);
+        $articleHierarchy->endArticleHierarchy($xmlWriter);
 
         $xmlContent = $xmlWriter->outputMemory(true);
 
