@@ -14,8 +14,8 @@ final class DataFlattener
             if (str_starts_with($key, 'article.')) {
                 $fieldKey = substr($key, strlen('article.'));
                 $articleFields[$fieldKey] = $value;
-            } elseif (str_starts_with($key, 'articlehierarchy.')) {
-                $fieldKey = substr($key, strlen('articlehierarchy.'));
+            } elseif (str_starts_with(strtolower($key), 'articlehierarchy.')) {
+                $fieldKey = substr(strtolower($key), strlen('articlehierarchy.'));
                 $articleHierarchyFields[$fieldKey] = $value;
             }
         }
