@@ -10,8 +10,8 @@ final class ArticleNodeBuilder
 {
     public function addNode(XMLWriter $writer, array $row): void
     {
-        $articleId = $row['id'] ?? '';
-        unset($row['id']);
+        $articleId = $row['ID'] ?? '';
+        unset($row['ID']);
 
         $this->startAndEndElement(
             $writer,
