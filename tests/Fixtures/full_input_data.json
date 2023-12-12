@@ -1,6 +1,6 @@
 [
   {
-    "article.id": "SOME ID 0",
+    "article.ID": "SOME ID 0",
     "article.TREXCL": "",
     "article.RECEXCL": "",
     "article.ASSORT": "",
@@ -13,7 +13,7 @@
     "articlehierarchy.text": "44"
   },
   {
-    "article.id": "SOME ID 1",
+    "article.ID": "SOME ID 1",
     "article.TREXCL": "",
     "article.RECEXCL": "",
     "article.ASSORT": "",
