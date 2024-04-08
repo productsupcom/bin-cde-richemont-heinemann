@@ -8,6 +8,7 @@ final class DataFlattener
 {
     public function toNestedArray(array $articleData): array
     {
+
         $articleFields = [];
         $articleHierarchyFields = [];
         foreach ($articleData as $key => $value) {
