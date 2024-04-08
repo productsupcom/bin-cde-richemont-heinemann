@@ -8,6 +8,7 @@ use Productsup\BinCdeHeinemann\Export\Application\Events\DebugContent;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
 use Productsup\CDE\ContainerApi\BaseClient\Client;
+use Productsup\CDE\ContainerApi\BaseClient\Runtime\Client\Client as ClientAlias;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Traversable;
 use XMLWriter;
@@ -28,7 +29,7 @@ final class XmlDataNodeBuilder
     {
         $count = 0;
         $articleHierarchyData = [];
-        $order = json_decode($this->client->showColumnOrder()->getBody()->getContents(),true);
+        $order = json_decode($this->client->showColumnOrder(ClientAlias::FETCH_RESPONSE)->getBody()->getContents(),true);
         $this->messageBus->dispatch(new DebugContent(json_encode($order)));
 
         foreach ($feed as $article) {
