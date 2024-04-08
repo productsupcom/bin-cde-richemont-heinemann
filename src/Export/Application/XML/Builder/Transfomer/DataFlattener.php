@@ -8,11 +8,14 @@ final class DataFlattener
 {
     public function toNestedArray(array $articleData, array $order): array
     {
+        $article = [];
         foreach ($order as $key) {
-            $order[$key] = $articleData[$key] ?? null;
+            if (array_key_exists($key, $articleData)) {
+                $article[$key] = $articleData[$key];
+            }
         }
 
-        return $this->splitFields($order);
+        return $this->splitFields($article);
 
     }
 
