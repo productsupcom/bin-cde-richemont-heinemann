@@ -33,11 +33,8 @@ final class XmlDataNodeBuilder
         $this->messageBus->dispatch(new DebugContent(json_encode($order)));
 
         foreach ($feed as $article) {
-            [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article);
-            //build new array based on received order array
-            $productArray = array_merge(array_flip($order['data']['order']), $productArray);
+            [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, $order['data']['order']);
             $this->messageBus->dispatch(new DebugContent(json_encode($productArray)));
-            $productHierarchy = array_merge(array_flip($order['data']['order']), $productHierarchy);
             $this->messageBus->dispatch(new DebugContent(json_encode($productHierarchy)));
             $this->articleNodeBuilder->addNode($xmlWriter, $productArray);
             array_push($articleHierarchyData, $productHierarchy);
