@@ -19,8 +19,8 @@ class DataFlattenerTest extends TestCase
     public function testToNestedArray(): void
     {
         $inputData = [
-            'article.id' => 1,
             'article.name' => 'Test Article',
+            'article.id' => 1,
             'articlehierarchy.level' => 2,
             'articlehierarchy.parent' => 1,
         ];
@@ -35,8 +35,8 @@ class DataFlattenerTest extends TestCase
                 'parent' => 1,
             ],
         ];
-
-        $outputData = $this->flattedData->toNestedArray($inputData);
+        $order = ['article.id', 'article.name', 'articlehierarchy.level', 'articlehierarchy.parent'];
+        $outputData = $this->flattedData->toNestedArray($inputData, $order);
         $this->assertSame($expectedOutput, $outputData);
     }
 }
