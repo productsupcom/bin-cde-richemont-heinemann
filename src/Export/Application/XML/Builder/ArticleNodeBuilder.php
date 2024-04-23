@@ -30,8 +30,16 @@ final class ArticleNodeBuilder
                         $writer,
                         'Field',
                         function () use ($writer, $tagName, $value): void {
-                            $writer->writeAttribute('name', $tagName);
-                            $writer->text($value);
+                            if (preg_match('/\[(.*?)\]/', $tagName, $matches) || preg_match('/\((.*?)\)/', $tagName, $matches)) {
+                                $tagName = str_replace($matches[0], '', $tagName);
+                                $writer->writeAttribute('name', $tagName.'_en-UK');
+                                $writer->text($value);
+                                $writer->writeAttribute('structure', $matches[1]);
+                                $writer->text($matches[1]);
+                            } else {
+                                $writer->writeAttribute('name', $tagName);
+                                $writer->text($value);
+                            }
                         }
                     );
                 }
