@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
-use Productsup\BinCdeHeinemann\Export\Application\Events\DebugContent;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
 use Productsup\CDE\ContainerApi\BaseClient\Client;
 use Productsup\CDE\ContainerApi\BaseClient\Runtime\Client\Client as ClientAlias;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Traversable;
 use XMLWriter;
 
@@ -20,8 +18,7 @@ final class XmlDataNodeBuilder
         private ArticleHierarchyNodeBuilder $articleHierarchyNodeBuilder,
         private DataFlattener $arrayTransformer,
         private XmlFileWriter $writer,
-        private Client $client,
-        private MessageBusInterface $messageBus,
+        private Client $client
     ) {
     }
 
@@ -33,8 +30,6 @@ final class XmlDataNodeBuilder
 
         foreach ($feed as $article) {
             [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, $order['data']['order'] ?? []);
-            $this->messageBus->dispatch(new DebugContent(json_encode($productArray)));
-            $this->messageBus->dispatch(new DebugContent(json_encode($productHierarchy)));
             $this->articleNodeBuilder->addNode($xmlWriter, $productArray);
             array_push($articleHierarchyData, $productHierarchy);
             $count++;
