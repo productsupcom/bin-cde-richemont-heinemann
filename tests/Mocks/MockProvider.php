@@ -33,6 +33,7 @@ trait MockProvider
     {
         $client = $this->createMock(Client::class);
         $client->method('showColumnOrder')->willReturn([]);
+
         return $client;
     }
 }
