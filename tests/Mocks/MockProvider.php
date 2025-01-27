@@ -7,6 +7,7 @@ namespace Productsup\BinCdeHeinemann\Tests\Mocks;
 use Exception;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
+use Productsup\CDE\ContainerApi\BaseClient\Client;
 
 trait MockProvider
 {
@@ -26,5 +27,12 @@ trait MockProvider
             );
 
         return $ftp;
+    }
+
+    private function getClientMock(): Client
+    {
+        $client = $this->createMock(Client::class);
+        $client->method('showColumnOrder')->willReturn([]);
+        return $client;
     }
 }
