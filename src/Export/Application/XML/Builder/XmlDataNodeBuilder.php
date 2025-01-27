@@ -29,8 +29,7 @@ final class XmlDataNodeBuilder
     {
         $count = 0;
         $articleHierarchyData = [];
-        $order = json_decode($this->client->showColumnOrder(ClientAlias::FETCH_RESPONSE)->getBody()->getContents(), true);
-        $this->messageBus->dispatch(new DebugContent(json_encode($order)));
+        $order = json_decode($this->client->showColumnOrder(ClientAlias::FETCH_RESPONSE)->getBody()->getContents(), true) ?? [];
 
         foreach ($feed as $article) {
             [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, $order['data']['order']);

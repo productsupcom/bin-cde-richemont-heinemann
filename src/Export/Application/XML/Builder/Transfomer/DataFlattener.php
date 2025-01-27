@@ -9,6 +9,9 @@ final class DataFlattener
     public function toNestedArray(array $articleData, array $order): array
     {
         $article = [];
+        if (empty($order)) {
+            return $articleData;
+        }
         foreach ($order as $key) {
             if (array_key_exists($key, $articleData)) {
                 $article[$key] = $articleData[$key];
