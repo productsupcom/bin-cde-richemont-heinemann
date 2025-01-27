@@ -25,7 +25,8 @@ final class ExportService implements ApplicationService
         try {
             $this->exporter->export();
         } catch (Throwable $exception) {
-            $this->messageBus->dispatch(new DebugContent($exception->getMessage()));
+            $this->messageBus->dispatch(new DebugContent($exception->getPrevious()->getMessage()));
+            $this->messageBus->dispatch(new DebugContent($exception->getTraceAsString()));
         }
 
         return Command::SUCCESS;
