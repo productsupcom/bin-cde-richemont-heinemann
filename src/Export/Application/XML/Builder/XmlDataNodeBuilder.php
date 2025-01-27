@@ -29,7 +29,7 @@ final class XmlDataNodeBuilder
         $order = json_decode($this->client->showColumnOrder(ClientAlias::FETCH_RESPONSE)->getBody()->getContents(), true);
 
         foreach ($feed as $article) {
-            [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, []);
+            [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, $order['data']['order'] ?? []);
             $this->articleNodeBuilder->addNode($xmlWriter, $productArray);
             array_push($articleHierarchyData, $productHierarchy);
             $count++;

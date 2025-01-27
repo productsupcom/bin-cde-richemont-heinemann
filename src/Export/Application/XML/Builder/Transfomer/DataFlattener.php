@@ -10,7 +10,7 @@ final class DataFlattener
     {
         $article = [];
         if (empty($order)) {
-            return $articleData;
+            return $this->splitFields($articleData);
         }
         foreach ($order as $key) {
             if (array_key_exists($key, $articleData)) {
