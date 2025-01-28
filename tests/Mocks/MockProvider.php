@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Productsup\BinCdeHeinemann\Tests\Mocks;
 
 use Exception;
+use GuzzleHttp\Psr7\Response;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use Productsup\CDE\ContainerApi\BaseClient\Client;
@@ -32,7 +33,8 @@ trait MockProvider
     private function getClientMock(): Client
     {
         $client = $this->createMock(Client::class);
-        $client->method('showColumnOrder')->willReturn([]);
+        $client->method('showColumnOrder')
+            ->willReturn(new Response(200, [], '{"data":{"order":[]}}'));
 
         return $client;
     }

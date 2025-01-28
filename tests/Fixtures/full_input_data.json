@@ -10,7 +10,8 @@
     "articlehierarchy.id": "44",
     "articlehierarchy.parentid": "4124",
     "articlehierarchy.function": "44",
-    "articlehierarchy.text": "44"
+    "articlehierarchy.text": "44",
+    "article.materials:standardizedColor[OCP:EXTERNAL]" : "SOME COLOR"
   },
   {
     "article.ID": "SOME ID 1",

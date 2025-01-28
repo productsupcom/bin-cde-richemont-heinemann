@@ -25,6 +25,7 @@ final class ArticleNodeBuilderTest extends TestCase
             'LOEVM' => '',
             'DISCDATE' => '',
             'DATAB' => '00000000',
+            'materials:standardizedColor[OCP:EXTERNAL]' => 'SOME COLOR',
         ];
 
         $article->addNode($xmlWriter, $row);

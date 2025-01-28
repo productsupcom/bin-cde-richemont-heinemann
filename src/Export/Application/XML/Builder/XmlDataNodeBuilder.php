@@ -7,11 +7,10 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
 use Productsup\CDE\ContainerApi\BaseClient\Client;
-use Productsup\CDE\ContainerApi\BaseClient\Runtime\Client\Client as ClientAlias;
 use Traversable;
 use XMLWriter;
 
-final class XmlDataNodeBuilder
+class XmlDataNodeBuilder
 {
     public function __construct(
         private ArticleNodeBuilder $articleNodeBuilder,
@@ -26,7 +25,7 @@ final class XmlDataNodeBuilder
     {
         $count = 0;
         $articleHierarchyData = [];
-        $order = json_decode($this->client->showColumnOrder(ClientAlias::FETCH_RESPONSE)->getBody()->getContents(), true);
+        $order = json_decode($this->client->showColumnOrder(Client::FETCH_RESPONSE)->getBody()->getContents(), true);
 
         foreach ($feed as $article) {
             [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, $order['data']['order'] ?? []);

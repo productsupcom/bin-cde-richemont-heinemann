@@ -7,4 +7,5 @@
       <Field name="LOEVM"/>
       <Field name="DISCDATE"/>
       <Field name="DATAB">00000000</Field>
+      <Field name="materials:standardizedColor_en-UK" structure="OCP:EXTERNAL">SOME COLOR</Field>
 </Article>
