@@ -32,7 +32,7 @@ final class ExportCommandTest extends AbstractCommandTester
         string $expectedFileContent
     ): void {
         $this->container->set(Filesystem::class, $filesystem);
-
+        $this->container->set(Client::class, $client);
         $this->buildMockClient();
 
         $this->populateInputContent($inputContent);
