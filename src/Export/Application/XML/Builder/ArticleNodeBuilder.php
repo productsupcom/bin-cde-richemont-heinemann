@@ -10,8 +10,8 @@ final class ArticleNodeBuilder
 {
     public function addNode(XMLWriter $writer, array $row): void
     {
-        $articleId = $row['id'] ?? '';
-        unset($row['id']);
+        $articleId = $row['ID'] ?? '';
+        unset($row['ID']);
 
         $this->startAndEndElement(
             $writer,
@@ -30,8 +30,15 @@ final class ArticleNodeBuilder
                         $writer,
                         'Field',
                         function () use ($writer, $tagName, $value): void {
-                            $writer->writeAttribute('name', $tagName);
-                            $writer->text($value);
+                            if (preg_match('/\[(.*?)\]/', $tagName, $matches) || preg_match('/\((.*?)\)/', $tagName, $matches)) {
+                                $tagName = str_replace($matches[0], '', $tagName);
+                                $writer->writeAttribute('name', $tagName.'_en-UK');
+                                $writer->writeAttribute('structure', $matches[1]);
+                                $writer->text('');
+                            } else {
+                                $writer->writeAttribute('name', $tagName);
+                                $writer->text($value);
+                            }
                         }
                     );
                 }

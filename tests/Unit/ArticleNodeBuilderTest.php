@@ -18,7 +18,7 @@ final class ArticleNodeBuilderTest extends TestCase
         $xmlWriter->openMemory();
         $article = new ArticleNodeBuilder();
         $row = [
-            'id' => 'SOME ID 0',
+            'ID' => 'SOME ID 0',
             'TREXCL' => '',
             'RECEXCL' => '',
             'ASSORT' => '',

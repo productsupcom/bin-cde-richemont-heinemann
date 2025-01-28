@@ -8,6 +8,7 @@ use League\Flysystem\Filesystem;
 use Productsup\BinCdeHeinemann\Export\Infrastructure\Cli\ExportCommand;
 use Productsup\BinCdeHeinemann\Tests\Helper\FixtureHelper;
 use Productsup\BinCdeHeinemann\Tests\Mocks\MockProvider;
+use Productsup\CDE\ContainerApi\BaseClient\Client;
 use Productsup\CDE\Tests\Tools\AbstractCommandTester;
 
 final class ExportCommandTest extends AbstractCommandTester
@@ -26,11 +27,12 @@ final class ExportCommandTest extends AbstractCommandTester
         array $expectedLogs,
         array $inputContent,
         Filesystem $filesystem,
+        Client $client,
         string $filePath,
         string $expectedFileContent
     ): void {
         $this->container->set(Filesystem::class, $filesystem);
-
+        $this->container->set(Client::class, $client);
         $this->buildMockClient();
 
         $this->populateInputContent($inputContent);
@@ -67,6 +69,7 @@ final class ExportCommandTest extends AbstractCommandTester
             ],
             'content' => json_decode($this->getFixture(self::BASE_FIXTURES_PATH, 'full_input_data.json'), true),
             'filesystem' => $this->getFileSystemMock(),
+            'client' =>  $this->getClientMock(),
             'filePath' => self::OUTPUT_XML,
             'expectedFileContent' => self::BASE_FIXTURES_PATH.'expected_success.xml',
         ];
@@ -86,6 +89,7 @@ final class ExportCommandTest extends AbstractCommandTester
             ],
             'content' => json_decode($this->getFixture(self::BASE_FIXTURES_PATH, 'full_input_data.json'), true),
             'filesystem' => $this->getErrorFilesystemMock(),
+            'client' =>  $this->getClientMock(),
             'filePath' => self::OUTPUT_XML,
             'expectedFileContent' => self::BASE_FIXTURES_PATH.'expected_success.xml',
         ];

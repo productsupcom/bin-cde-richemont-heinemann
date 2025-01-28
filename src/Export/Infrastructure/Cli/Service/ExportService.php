@@ -11,7 +11,7 @@ use Symfony\Component\Console\Command\Command;
 final class ExportService implements ApplicationService
 {
     public function __construct(
-        private Exporter $exporter,
+        private Exporter $exporter
     ) {
     }
 

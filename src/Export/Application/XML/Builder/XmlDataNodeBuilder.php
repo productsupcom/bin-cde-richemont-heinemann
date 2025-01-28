@@ -6,6 +6,8 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
 use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
+use Productsup\CDE\ContainerApi\BaseClient\Client;
+use Productsup\CDE\ContainerApi\BaseClient\Runtime\Client\Client as ClientAlias;
 use Traversable;
 use XMLWriter;
 
@@ -16,6 +18,7 @@ final class XmlDataNodeBuilder
         private ArticleHierarchyNodeBuilder $articleHierarchyNodeBuilder,
         private DataFlattener $arrayTransformer,
         private XmlFileWriter $writer,
+        private Client $client
     ) {
     }
 
@@ -23,9 +26,10 @@ final class XmlDataNodeBuilder
     {
         $count = 0;
         $articleHierarchyData = [];
+        $order = json_decode($this->client->showColumnOrder(ClientAlias::FETCH_RESPONSE)->getBody()->getContents(), true);
 
         foreach ($feed as $article) {
-            [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article);
+            [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, $order['data']['order'] ?? []);
             $this->articleNodeBuilder->addNode($xmlWriter, $productArray);
             array_push($articleHierarchyData, $productHierarchy);
             $count++;
