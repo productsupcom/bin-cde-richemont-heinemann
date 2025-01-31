@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
+use Exception;
+use JsonException;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Exception\InvalidOrderResponse;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
 use Productsup\CDE\ContainerApi\BaseClient\Client;
@@ -25,10 +28,9 @@ class XmlDataNodeBuilder
     {
         $count = 0;
         $articleHierarchyData = [];
-        $order = json_decode($this->client->showColumnOrder(Client::FETCH_RESPONSE)->getBody()->getContents(), true);
-
+        $order = $this->getOrder();
         foreach ($feed as $article) {
-            [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, $order['data']['order'] ?? []);
+            [$productArray, $productHierarchy] = $this->arrayTransformer->toNestedArray($article, $order);
             $this->articleNodeBuilder->addNode($xmlWriter, $productArray);
             array_push($articleHierarchyData, $productHierarchy);
             $count++;
@@ -42,5 +44,25 @@ class XmlDataNodeBuilder
             $this->writer->conditionalWrite($count, $xmlWriter);
         }
         $this->articleHierarchyNodeBuilder->endArticleHierarchy($xmlWriter);
+    }
+
+    private function getOrder(): array
+    {
+        try {
+            $response = $this->client->showColumnOrder(Client::FETCH_RESPONSE);
+
+            if (!in_array($response->getStatusCode(), [200, 202])) {
+                throw InvalidOrderResponse::invalid($response->getReasonPhrase());
+            }
+
+            $contents = $response->getBody()->getContents();
+            $order = json_decode(json: $contents, associative: true, flags: JSON_THROW_ON_ERROR);
+
+            return $order['data']['order'] ?? [];
+        } catch (JsonException) {
+            throw InvalidOrderResponse::invalidJson();
+        } catch (Exception $exception) {
+            throw InvalidOrderResponse::dueToPrevious($exception);
+        }
     }
 }
