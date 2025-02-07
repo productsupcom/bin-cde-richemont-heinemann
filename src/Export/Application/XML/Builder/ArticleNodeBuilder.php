@@ -34,7 +34,7 @@ final class ArticleNodeBuilder
                                 $tagName = str_replace($matches[0], '', $tagName);
                                 $writer->writeAttribute('name', $tagName.'_en-UK');
                                 $writer->writeAttribute('structure', $matches[1]);
-                                $writer->text('');
+                                $writer->text($value);
                             } else {
                                 $writer->writeAttribute('name', $tagName);
                                 $writer->text($value);
