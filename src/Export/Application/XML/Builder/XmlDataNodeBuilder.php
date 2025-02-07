@@ -6,7 +6,7 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder;
 
 use Exception;
 use JsonException;
-use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Exception\InvalidOrderResponse;
+use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Exception\ColumnOrderException;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Transfomer\DataFlattener;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Helper\XmlFileWriter;
 use Productsup\CDE\ContainerApi\BaseClient\Client;
@@ -52,7 +52,7 @@ class XmlDataNodeBuilder
             $response = $this->client->showColumnOrder(Client::FETCH_RESPONSE);
 
             if (!in_array($response->getStatusCode(), [200, 202])) {
-                throw InvalidOrderResponse::invalid($response->getReasonPhrase());
+                throw ColumnOrderException::unexpectedStatusCode($response->getReasonPhrase());
             }
 
             $contents = $response->getBody()->getContents();
@@ -60,9 +60,9 @@ class XmlDataNodeBuilder
 
             return $order['data']['order'] ?? [];
         } catch (JsonException) {
-            throw InvalidOrderResponse::invalidJson();
+            throw ColumnOrderException::invalidJson();
         } catch (Exception $exception) {
-            throw InvalidOrderResponse::dueToPrevious($exception);
+            throw ColumnOrderException::dueToPrevious($exception);
         }
     }
 }

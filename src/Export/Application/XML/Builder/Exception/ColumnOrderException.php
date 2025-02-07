@@ -7,17 +7,17 @@ namespace Productsup\BinCdeHeinemann\Export\Application\XML\Builder\Exception;
 use Productsup\CDE\Connector\Exception\EngineeringLevelException;
 use Throwable;
 
-final class InvalidOrderResponse extends EngineeringLevelException
+final class ColumnOrderException extends EngineeringLevelException
 {
     public static function dueToPrevious(Throwable $exception): self
     {
         return new self(
-            message: 'Invalid orders response.',
+            message: 'Exception encountered while getting export column order.',
             previous: $exception
         );
     }
 
-    public static function invalid(string $message): self
+    public static function unexpectedStatusCode(string $message): self
     {
         return new self(
             message: $message
