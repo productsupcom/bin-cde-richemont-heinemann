@@ -8,3 +8,6 @@ parameters:
 services:
   League\Flysystem\Filesystem:
     synthetic: true
+
+  Productsup\CDE\ContainerApi\BaseClient\Client:
+    synthetic: true

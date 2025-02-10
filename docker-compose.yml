@@ -1,5 +1,3 @@
-version: '3.3'
-
 services:
     php-cli:
         image: 'docker.productsup.com/cde/cde-php-cli-dev:8.1'

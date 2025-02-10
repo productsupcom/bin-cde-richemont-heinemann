@@ -33,17 +33,11 @@ final class ExportCommandTest extends AbstractCommandTester
     ): void {
         $this->container->set(Filesystem::class, $filesystem);
         $this->container->set(Client::class, $client);
-        $this->buildMockClient();
-
         $this->populateInputContent($inputContent);
-        if (!empty($calls)) {
-            $this->appendCalls($calls);
-        }
         $this->setUpFromCommandClass(ExportCommand::class);
         $this->execute($commandOptions);
         $this->checkLogs($expectedLogs);
         $this->assertEquals($expectedResult, $this->getStatusCode());
-
         $this->assertFileExists($filePath);
         $this->assertEquals(file_get_contents($expectedFileContent), file_get_contents($filePath));
     }
