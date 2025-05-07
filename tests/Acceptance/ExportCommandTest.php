@@ -58,7 +58,7 @@ final class ExportCommandTest extends AbstractCommandTester
             'expected_logs' => [
                 'INFO: Starting the export.',
                 'INFO: Creating XML file.',
-                'INFO: File generated for upload: vfs://root/output.xml',
+                'INFO: File generated for upload: vfs://root/output_20250311.xml',
                 'INFO: Exporting process finished successfully.',
             ],
             'content' => json_decode($this->getFixture(self::BASE_FIXTURES_PATH, 'full_input_data.json'), true),
@@ -77,7 +77,7 @@ final class ExportCommandTest extends AbstractCommandTester
             'expected_logs' => [
                 'INFO: Starting the export.',
                 'INFO: Creating XML file.',
-                'INFO: File generated for upload: vfs://root/output.xml',
+                'INFO: File generated for upload: vfs://root/output_20250311.xml',
                 'DEBUG: Exception encountered.',
                 'ERROR: Process was terminated. An exception encountered during the run. If the problem persist, please contact the support.',
             ],
@@ -96,7 +96,7 @@ final class ExportCommandTest extends AbstractCommandTester
             '--secret-access-key' => 'test',
             '--bucket' => 'test',
             '--region' => 'test',
-            '--filename' => self::OUTPUT_XML,
+            '--filename' => 'vfs://root/output',
         ];
     }
 }

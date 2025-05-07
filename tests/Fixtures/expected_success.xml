@@ -2,7 +2,7 @@
 <n0:ArticleBulkRequest xmlns:prx="urn:sap.com:proxy:MBP:/1SAI/TAS81A8E819F7B96D2C6D2F:750" xmlns:n0="http://montblanc.de/xi/ERP/MDM">
  <Receiver>
   <ID>HEINEMANN-API</ID>
-  <EmailAddressID/>
+  <EmailAddressID>2025-03-1114:00:00</EmailAddressID>
  </Receiver>
  <Article>
   <ID>SOME ID 0</ID>
