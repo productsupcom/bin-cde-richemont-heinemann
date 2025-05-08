@@ -11,3 +11,6 @@ services:
 
   Productsup\CDE\ContainerApi\BaseClient\Client:
     synthetic: true
+
+  Productsup\BinCdeHeinemann\Tests\Mocks\DateProviderForTests: ~
+  Productsup\BinCdeHeinemann\Export\Application\Provider\DateTimeProvider: '@Productsup\BinCdeHeinemann\Tests\Mocks\DateProviderForTests'

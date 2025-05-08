@@ -4,8 +4,6 @@ parameters:
     bucket: ''
     region: ''
     filename: ''
-    xml_receiver_id: ''
-    xml_receiver_email: ''
     temp_filename: '/data/productsup/tmp.xml'
 
 services:
@@ -20,8 +18,6 @@ services:
             $region: '%region%'
             $filename: '%filename%'
             $tempFilename: '%temp_filename%'
-            $receiverId: '%xml_receiver_id%'
-            $receiverEmail: '%xml_receiver_email%'
 
     Productsup\BinCdeHeinemann\:
         resource: '../src'

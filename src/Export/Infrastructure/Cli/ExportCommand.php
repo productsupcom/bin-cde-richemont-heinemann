@@ -17,8 +17,6 @@ final class ExportCommand extends AbstractCommand
     private const BUCKET = 'bucket';
     private const REGION = 'region';
     private const FILENAME = 'filename';
-    private const XML_RECEIVER_ID = 'xml-receiver-id';
-    private const XML_RECEIVER_EMAIL = 'xml-receiver-email';
 
     public function configure(): void
     {
@@ -50,20 +48,7 @@ final class ExportCommand extends AbstractCommand
                 mode: InputOption::VALUE_OPTIONAL,
                 description: 'Region',
                 default: 'eu-central-1'
-            )
-
-            ->addOption(
-                name: self::XML_RECEIVER_ID,
-                mode: InputOption::VALUE_REQUIRED,
-                description: 'XML custom receiver value.',
-                default: 'HEINEMANN-API'
-            )
-            ->addOption(
-                name: self::XML_RECEIVER_EMAIL,
-                mode: InputOption::VALUE_REQUIRED,
-                description: 'XML custom email value.',
             );
-
     }
 
     protected function mapOptions(InputInterface $input, OutputInterface $output): array
@@ -74,8 +59,6 @@ final class ExportCommand extends AbstractCommand
             'bucket' => self::BUCKET,
             'region' => self::REGION,
             'filename' => self::FILENAME,
-            'xml_receiver_id' => self::XML_RECEIVER_ID,
-            'xml_receiver_email' => self::XML_RECEIVER_EMAIL,
         ];
     }
 

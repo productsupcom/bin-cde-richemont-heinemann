@@ -6,6 +6,7 @@ namespace Productsup\BinCdeHeinemann\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Productsup\BinCdeHeinemann\Export\Application\XML\Builder\ReceiverNodeBuilder;
+use Productsup\BinCdeHeinemann\Tests\Mocks\DateProviderForTests;
 use XMLWriter;
 
 final class ReceiverNodeBuilderTest extends TestCase
@@ -31,11 +32,10 @@ final class ReceiverNodeBuilderTest extends TestCase
      */
     public function testAddNode(): void
     {
-        $receiver = new ReceiverNodeBuilder('1', 'test@example.com');
+        $receiver = new ReceiverNodeBuilder(new DateProviderForTests());
         $receiver->addNode($this->xmlWriter);
         $xml = $this->xmlWriter->outputMemory();
 
         $this->assertXmlStringEqualsXmlString(file_get_contents(self::BASE_FIXTURES_PATH.'ReceiverExpectedXml.xml'), $xml);
-
     }
 }
